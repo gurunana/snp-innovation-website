@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" fill="none">
+  <!-- Blue left-side accent bar -->
+  <rect x="0" y="8" width="4" height="48" rx="2" fill="#1A3A8F"/>
+
+  <!-- S (navy blue) -->
+  <text x="12" y="50"
+    font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+    font-size="46" font-weight="900"
+    fill="#1A3A8F">S</text>
+
+  <!-- NP (red) kerned tight to S -->
+  <text x="44" y="50"
+    font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+    font-size="46" font-weight="900"
+    fill="#CC2020">NP</text>
+
+  <!-- Thin vertical divider -->
+  <line x1="124" y1="10" x2="124" y2="56"
+        stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- SNP label above INNOVATION -->
+  <text x="134" y="26"
+    font-family="Arial,sans-serif"
+    font-size="9.5" font-weight="700"
+    letter-spacing="3.5"
+    fill="#1A3A8F">SNP</text>
+
+  <!-- INNOVATION wordmark -->
+  <text x="134" y="48"
+    font-family="'Arial Black','Helvetica Neue',Arial,sans-serif"
+    font-size="14.5" font-weight="900"
+    letter-spacing="1.8"
+    fill="#1A3A8F">INNOVATION</text>
+
+  <!-- Red accent dot -->
+  <circle cx="134" cy="57" r="2.5" fill="#CC2020"/>
+</svg>

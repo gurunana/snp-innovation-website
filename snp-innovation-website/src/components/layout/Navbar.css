@@ -1,0 +1,423 @@
+/* ========================================
+   NAVBAR.CSS — SNP Innovation Navigation
+   ● Transparent over dark hero  → white links
+   ● Scrolled (glass)            → navy links
+   ● Solutions dropdown with icons
+   ● Mobile drawer
+   ======================================== */
+
+/* ── AppBar base ──────────────────────────────────────────────── */
+.navbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  transition: all 0.4s ease !important;
+  border: none !important;
+}
+
+/* Transparent state — sits over dark hero gradient */
+.navbar.navbar-transparent {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Scrolled state — Glassmorphism white bar */
+.navbar.navbar-scrolled {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(27, 61, 138, 0.10) !important;
+  box-shadow: 0 4px 24px rgba(13, 36, 85, 0.10) !important;
+}
+
+.navbar-toolbar {
+  justify-content: space-between;
+  align-items: center;
+  /* 10px top/bottom + 52px logo = 72px total height, matching App.jsx spacer */
+  padding: 10px 48px !important;
+  min-height: 72px !important;
+  width: 100%;
+  gap: 24px;
+}
+
+/* ── Logo ─────────────────────────────────────────────────────── */
+.navbar-logo-container {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-logo-container:hover {
+  opacity: 0.88;
+  transform: scale(1.03);
+}
+
+/* ── Desktop Navigation ───────────────────────────────────────── */
+.navbar-desktop {
+  display: none;
+  gap: 4px;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+@media (min-width: 1024px) {
+  .navbar-desktop {
+    display: flex;
+  }
+}
+
+.navbar-desktop-nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-right: 20px;
+}
+
+/* ── Nav Links ────────────────────────────────────────────────── */
+/* Default (transparent/dark hero): white text */
+.navbar-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.90);
+  padding: 12px 16px;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  position: relative;
+}
+
+.navbar-link:hover {
+  color: #ffffff;
+}
+
+/* Animated underline on hover */
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-secondary);  /* red accent underline */
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+}
+
+.navbar-link.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.navbar-link.active::after {
+  width: 100%;
+  background-color: var(--color-secondary);
+}
+
+/* ── Scrolled overrides — dark links on white bar ────────────── */
+.navbar-scrolled .navbar-link {
+  color: var(--color-text-primary);
+}
+
+.navbar-scrolled .navbar-link:hover {
+  color: var(--color-primary);
+}
+
+.navbar-scrolled .navbar-link::after {
+  background-color: var(--color-primary);
+}
+
+.navbar-scrolled .navbar-link.active {
+  color: var(--color-primary);
+}
+
+.navbar-scrolled .navbar-link.active::after {
+  background-color: var(--color-primary);
+}
+
+/* Dropdown arrow icon */
+.dropdown-icon {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.solutions-trigger:hover .dropdown-icon {
+  transform: scaleY(1.1);
+}
+
+/* ── Solutions Dropdown Menu ──────────────────────────────────── */
+.solutions-menu .MuiPaper-root {
+  margin-top: 12px !important;
+}
+
+.solutions-menu-item {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px !important;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.solutions-menu-item:hover {
+  background-color: rgba(27, 61, 138, 0.06);
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+}
+
+.solutions-menu-item.active {
+  background-color: rgba(27, 61, 138, 0.10);
+  color: var(--color-primary);
+  font-weight: 600;
+  border-left-color: var(--color-primary);
+}
+
+.solutions-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--color-primary);
+  transition: transform 0.2s ease;
+}
+
+.solutions-menu-item:hover .solutions-item-icon {
+  transform: scale(1.15);
+  color: var(--color-secondary);
+}
+
+.solutions-item-text {
+  flex: 1;
+}
+
+.solutions-item-label {
+  font-weight: 500;
+}
+
+/* ── CTA Button ───────────────────────────────────────────────── */
+/* Transparent navbar: white-outlined CTA */
+.navbar-transparent .cta-button {
+  background: var(--color-secondary) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 15px rgba(212, 43, 30, 0.35) !important;
+  text-transform: none !important;
+  font-size: 14px !important;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.navbar-transparent .cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(212, 43, 30, 0.50) !important;
+  background: var(--color-secondary-light) !important;
+}
+
+/* Scrolled navbar: solid navy CTA */
+.cta-button {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 15px rgba(27, 61, 138, 0.30) !important;
+  text-transform: none !important;
+  font-size: 14px !important;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(27, 61, 138, 0.45) !important;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%) !important;
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* ── Mobile Hamburger Button ──────────────────────────────────── */
+.navbar-mobile-button {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+@media (min-width: 1024px) {
+  .navbar-mobile-button {
+    display: none;
+  }
+}
+
+/* White icon on transparent/dark hero */
+.navbar-transparent .navbar-mobile-button .MuiIconButton-root {
+  color: #ffffff;
+}
+
+/* Navy icon on scrolled white bar */
+.navbar-scrolled .navbar-mobile-button .MuiIconButton-root {
+  color: var(--color-primary);
+}
+
+.navbar-mobile-button .MuiIconButton-root:hover {
+  color: var(--color-secondary);
+}
+
+/* ── Mobile Drawer ────────────────────────────────────────────── */
+.navbar-mobile-drawer {
+  z-index: 1200 !important;
+}
+
+.navbar-mobile-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(27, 61, 138, 0.10);
+}
+
+.navbar-mobile-header .MuiIconButton-root {
+  color: var(--color-primary);
+}
+
+.navbar-mobile-list {
+  padding: 0;
+  padding-top: 8px;
+}
+
+/* Mobile Nav Items */
+.mobile-nav-item {
+  padding: 14px 20px !important;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.mobile-nav-item:hover {
+  background-color: rgba(27, 61, 138, 0.05);
+  color: var(--color-primary);
+}
+
+.mobile-nav-item.active {
+  background-color: rgba(27, 61, 138, 0.08);
+  border-left-color: var(--color-secondary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.mobile-nav-item.solutions-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-nav-item.solutions-item .MuiListItemText-root {
+  margin: 0;
+}
+
+/* Mobile Submenu */
+.mobile-submenu-item {
+  padding: 12px 20px 12px 56px !important;
+  border-left: 3px solid transparent;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-submenu-icon {
+  position: absolute;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: var(--color-primary);
+  opacity: 0.7;
+}
+
+.mobile-submenu-item:hover {
+  background-color: rgba(27, 61, 138, 0.05);
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+}
+
+.mobile-submenu-item:hover .mobile-submenu-icon {
+  opacity: 1;
+}
+
+.mobile-submenu-item.active {
+  background-color: rgba(27, 61, 138, 0.08);
+  border-left-color: var(--color-secondary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.mobile-submenu-item.active .mobile-submenu-icon {
+  opacity: 1;
+  color: var(--color-secondary);
+}
+
+/* Mobile CTA — stays at drawer bottom */
+.mobile-cta-container {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(27, 61, 138, 0.10);
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .navbar-toolbar {
+    padding: 10px 24px !important;
+    min-height: 72px !important;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-toolbar {
+    padding: 10px 16px !important;
+    min-height: 72px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-toolbar {
+    padding: 8px 12px !important;
+    min-height: 68px !important;
+    gap: 12px;
+  }
+
+  .navbar-mobile-drawer {
+    width: 100% !important;
+  }
+
+  .mobile-cta-container {
+    padding-bottom: 20px;
+    height: auto;
+  }
+}

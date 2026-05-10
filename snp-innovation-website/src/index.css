@@ -1,0 +1,489 @@
+@import "tailwindcss";
+
+/* ========================================
+   GLOBAL CSS VARIABLES — SNP Innovation Theme
+   ● Colors sampled directly from the official logo PNG
+   ● To change brand colour: edit these variables ONLY —
+     every button, heading, card, and link updates automatically
+   ======================================== */
+:root {
+  /* ── PRIMARY — Logo Navy Blue (#1B3D8A) ──────────────────────────
+     Sampled from the S letterform in the official PNG logo.
+     Use for buttons, links, headings, active states.              */
+  --color-primary:          #1B3D8A;
+  --color-primary-light:    #2D5FD6;   /* hover / lighter variant  */
+  --color-primary-dark:     #0D2455;   /* deep backgrounds / footer */
+  --color-primary-gradient: linear-gradient(135deg, #0D2455 0%, #1B3D8A 50%, #2D5FD6 100%);
+
+  /* ── SECONDARY — Logo Bold Red (#D42B1E) ─────────────────────────
+     Sampled from the NP letterform in the official PNG logo.
+     Use for CTA accents, highlights, secondary buttons.           */
+  --color-secondary:        #D42B1E;
+  --color-secondary-light:  #F03D30;   /* hover / lighter variant  */
+  --color-secondary-dark:   #A01F14;   /* pressed / darker variant  */
+
+  /* ── BACKGROUNDS ─────────────────────────────────────────────────*/
+  --color-background:         #FFFFFF;
+  --color-background-dark:    #F8FAFC;
+  --color-background-section: #EEF2F9;  /* slight blue tint to match brand */
+  --color-background-hero:    linear-gradient(135deg, #060F1E 0%, #0D2455 45%, #1B3D8A 100%);
+
+  /* ── TEXT ────────────────────────────────────────────────────────*/
+  --color-text-primary:   #0D1B3E;   /* near-black with blue tint  */
+  --color-text-secondary: #4A5568;
+  --color-text-light:     #FFFFFF;
+
+  /* ── STATUS ──────────────────────────────────────────────────────*/
+  --color-success: #10B981;
+  --color-error:   #EF4444;
+  --color-warning: #F59E0B;
+
+  /* ── BORDERS & MISC ──────────────────────────────────────────────*/
+  --color-border:      #DDE5F4;   /* blue-tinted border */
+  --font-primary:      'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --max-width:         1440px;
+  --border-radius:     12px;
+  --border-radius-lg:  20px;
+
+  /* ── SHADOWS ─────────────────────────────────────────────────────*/
+  --shadow-sm:   0 1px 2px rgba(13,36,85,0.06);
+  --shadow-md:   0 4px 12px rgba(13,36,85,0.10);
+  --shadow-lg:   0 12px 40px rgba(13,36,85,0.13);
+  --shadow-xl:   0 20px 60px rgba(13,36,85,0.17);
+  --shadow-glow: 0 0 40px rgba(45,95,214,0.18);
+
+  /* ── TRANSITIONS ─────────────────────────────────────────────────*/
+  --transition-fast:   0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow:   0.5s ease;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.section-padding {
+  padding: 100px 24px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius-lg);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient Background */
+.gradient-bg {
+  background: var(--color-primary-gradient);
+}
+
+/* Modern hover effect */
+.hover-lift {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Subtle card hover glow */
+.hover-glow {
+  transition: all var(--transition-normal);
+}
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow);
+  border-color: var(--color-primary-light);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  50% { box-shadow: 0 0 20px 10px rgba(59, 130, 246, 0); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Section divider - wave shape */
+.section-divider-wave {
+  position: relative;
+}
+.section-divider-wave::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23ffffff' d='M0,40 C360,100 720,0 1080,40 C1260,60 1380,80 1440,40 L1440,100 L0,100 Z'/%3E%3C/svg%3E") no-repeat bottom;
+  background-size: cover;
+}
+
+/* Background colors */
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-light { background-color: var(--color-background-section); }
+.text-primary-color { color: var(--color-primary); }
+.text-secondary-color { color: var(--color-secondary); }
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ========================================
+   SCROLL REVEAL ANIMATIONS
+   Applied via IntersectionObserver in RevealBox.
+   1. Element starts hidden (.reveal)
+   2. Observer adds .is-visible when in viewport
+   3. CSS transition handles the animation
+   ======================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger delays — add class reveal-delay-N to each card */
+.reveal-delay-1 { transition-delay: 0.07s; }
+.reveal-delay-2 { transition-delay: 0.14s; }
+.reveal-delay-3 { transition-delay: 0.21s; }
+.reveal-delay-4 { transition-delay: 0.28s; }
+.reveal-delay-5 { transition-delay: 0.35s; }
+.reveal-delay-6 { transition-delay: 0.42s; }
+
+/* Slide-in from left (for text/hero columns) */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========================================
+   MOBILE HORIZONTAL SCROLL CARDS
+   On xs screens, card rows scroll sideways.
+   Add .mobile-scroll-row to the wrapper Box,
+   and .mobile-scroll-card to each card.
+   ======================================== */
+@media (max-width: 767px) {
+  .mobile-scroll-row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 12px;
+    /* hide scrollbar visually */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .mobile-scroll-row::-webkit-scrollbar { display: none; }
+  .mobile-scroll-card {
+    min-width: 270px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+  }
+  /* Wider card for 2-col layouts (e.g. testimonials) */
+  .mobile-scroll-card-wide {
+    min-width: 300px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+  }
+}
+
+/* ========================================
+   PROFESSIONAL MICRO-INTERACTIONS
+   ======================================== */
+/* Smooth scale on interactive cards */
+.card-interactive {
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-interactive:hover {
+  transform: translateY(-6px) scale(1.01);
+}
+
+/* ========================================
+   ENHANCED REVEAL — slide-up from bottom
+   ======================================== */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scale-in for stat numbers */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.55s ease,
+              transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========================================
+   SHIMMER LOADING SKELETON
+   ======================================== */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.8s infinite linear;
+  border-radius: 8px;
+}
+
+/* ========================================
+   BUTTON PULSE (CTA prominence)
+   ======================================== */
+@keyframes btn-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.45); }
+  70%  { box-shadow: 0 0 0 14px rgba(249, 115, 22, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+}
+.btn-pulse {
+  animation: btn-pulse 2.4s ease-out infinite;
+}
+
+/* ========================================
+   COUNTER HIGHLIGHT (stat numbers)
+   ======================================== */
+@keyframes count-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+.count-pop {
+  animation: count-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ========================================
+   BADGE FLOAT (floating UI accents)
+   ======================================== */
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50%       { transform: translateY(-8px) rotate(1deg); }
+}
+.badge-float {
+  animation: badge-float 4s ease-in-out infinite;
+}
+
+/* ========================================
+   SOFT GRADIENT BORDER ON HOVER
+   ======================================== */
+.card-border-glow {
+  position: relative;
+  transition: box-shadow 0.35s ease;
+}
+.card-border-glow:hover {
+  box-shadow: 0 0 0 2px var(--color-primary), 0 16px 48px rgba(30, 64, 175, 0.12);
+}
+
+/* ========================================
+   PAGE ENTRY — fade in whole page
+   ======================================== */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+main {
+  animation: page-enter 0.4s ease forwards;
+}
+
+/* ========================================
+   SMOOTH LINK UNDERLINE SWIPE
+   ======================================== */
+.link-swipe {
+  position: relative;
+  text-decoration: none;
+}
+.link-swipe::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--color-primary);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.link-swipe:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   SMOOTH IMAGE ZOOM ON HOVER
+   ======================================== */
+.img-zoom-wrap {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.img-zoom-wrap img,
+.img-zoom-wrap .img-zoom-target {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.img-zoom-wrap:hover img,
+.img-zoom-wrap:hover .img-zoom-target {
+  transform: scale(1.06);
+}
+
+/* ========================================
+   CHIP/TAG HOVER
+   ======================================== */
+.chip-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chip-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ========================================
+   SECTION FADE DIVIDER
+   A subtle gradient line between sections
+   ======================================== */
+.section-fade-top {
+  position: relative;
+}
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #E2E8F0 30%, #E2E8F0 70%, transparent);
+}
