@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import {
-  Box, Container, Typography, Grid, TextField,
+  Box, Container, Typography, TextField,
   Button, Alert, Snackbar, Card,
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -135,15 +135,23 @@ const ContactPage = () => {
       <PageBanner
         title="CONTACT US — WE ARE HERE TO HELP"
         subtitle="Reach out to our team for any questions about our services, partnerships, or careers. We respond within 24 hours."
+        bgImage="/images/gallery/headers/ContactUsHeader.png"
       />
 
       {/* ── Contact details + form ── */}
       <Box sx={{ py: { xs: 4, md: 7 }, backgroundColor: '#F8FAFC' }}>
         <Container maxWidth="xl">
-          <Grid container spacing={{ xs: 5, md: 8 }} alignItems="flex-start">
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '5fr 7fr' },
+              gap: { xs: 5, md: 8 },
+              alignItems: 'flex-start',
+            }}
+          >
 
             {/* Left: contact info */}
-            <Grid item xs={12} md={5}>
+            <Box>
               <Typography
                 sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', mb: 1 }}
               >
@@ -219,10 +227,10 @@ const ContactPage = () => {
                   </Box>
                 ))}
               </Box>
-            </Grid>
+            </Box>
 
             {/* Right: contact form */}
-            <Grid item xs={12} md={7}>
+            <Box>
               <Card sx={{ p: { xs: 3, md: 5 }, borderRadius: '20px', boxShadow: '0 8px 32px rgba(0,0,0,0.08)', border: '1px solid #E2E8F0' }}>
                 <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', mb: 1 }}>
                   Send Us a Message
@@ -232,12 +240,12 @@ const ContactPage = () => {
                 </Typography>
                 <ContactForm />
               </Card>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
-      {/* ── Regional offices ── */}
+      {/* ── Regional offices ── HIDDEN per user request
       <Box sx={{ py: { xs: 3, md: 5 }, backgroundColor: 'white' }}>
         <Container maxWidth="xl">
           <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 } }}>
@@ -290,6 +298,7 @@ const ContactPage = () => {
           </Box>
         </Container>
       </Box>
+      */}
 
       {/* ── Map embed placeholder ── */}
       <Box sx={{ height: { xs: '280px', md: '400px' }, position: 'relative' }}>

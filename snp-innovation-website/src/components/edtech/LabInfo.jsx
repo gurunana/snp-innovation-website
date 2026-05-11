@@ -6,7 +6,6 @@
    ======================================== */
 
 import { Box, Typography, Container, Chip } from '@mui/material';
-import { Grid } from '@mui/material';
 import SectionHeader from '../common/SectionHeader';
 import BuildIcon from '@mui/icons-material/Build';
 import SchoolIcon from '@mui/icons-material/School';
@@ -70,6 +69,12 @@ const features = [
 // Board alignment chips
 const boards = ['CBSE', 'ICSE', 'IGCSE', 'NEP 2020', 'State Boards'];
 
+const stats = [
+  { value: '500+', label: 'Labs Deployed' },
+  { value: '20+', label: 'States Covered' },
+  { value: '1L+', label: 'Students Reached' },
+];
+
 const LabInfo = () => {
   return (
     <Box sx={{ py: { xs: 3, md: 5 }, backgroundColor: '#fff' }}>
@@ -79,180 +84,191 @@ const LabInfo = () => {
           subtitle="A fully integrated, curriculum-aligned, plug-and-play learning environment built to deliver world-class hands-on STEM education."
         />
 
-        <Grid container spacing={4} sx={{ mt: 1 }} alignItems="stretch">
-          {/* Left: image + quick facts */}
-          <Grid item xs={12} md={5}>
-            <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 3 }}>
-              {/* Main image */}
+        {/* CSS Grid: image+facts on left, 6 feature cards on right */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '5fr 7fr' },
+            gap: { xs: 3, md: 4 },
+            mt: 3,
+            alignItems: 'stretch',
+          }}
+        >
+          {/* ── LEFT: Image + boards + stats ── */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+            {/* Main image */}
+            <Box
+              sx={{
+                borderRadius: 4,
+                overflow: 'hidden',
+                boxShadow: '0 20px 50px rgba(59,130,246,0.15)',
+                position: 'relative',
+                flexShrink: 0,
+              }}
+            >
+              <Box
+                component="img"
+                src="/images/gallery/headers/StemLabCover.png"
+                alt="SNP STEM Innovation Lab"
+                sx={{ width: '100%', height: { xs: 240, md: 300 }, objectFit: 'cover', display: 'block' }}
+              />
               <Box
                 sx={{
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  boxShadow: '0 20px 50px rgba(59,130,246,0.15)',
-                  position: 'relative',
-                  flexShrink: 0,
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to top, rgba(15,23,42,0.7) 0%, transparent 55%)',
+                }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  p: 3,
                 }}
               >
+                <Typography
+                  variant="h5"
+                  sx={{ color: '#fff', fontWeight: 800, fontSize: '20px', letterSpacing: '-0.5px' }}
+                >
+                  Built for Every Learner
+                </Typography>
+                <Typography sx={{ color: 'rgba(255,255,255,0.85)', fontSize: '13px', mt: 0.5 }}>
+                  Class 5 → Postgraduate Level
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Board alignment */}
+            <Box
+              sx={{
+                p: 2,
+                borderRadius: 3,
+                background: 'linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%)',
+                border: '1px solid #E5E7EB',
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                sx={{ fontWeight: 700, color: '#1F2937', mb: 1.5, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.5px' }}
+              >
+                Curriculum Aligned With
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {boards.map((board) => (
+                  <Chip
+                    key={board}
+                    label={board}
+                    size="small"
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: '12px',
+                      backgroundColor: '#2D5BE3',
+                      color: '#fff',
+                      borderRadius: '20px',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
+
+            {/* Quick stat row — CSS Grid 3 cols */}
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: 1.5,
+                mt: 'auto',
+              }}
+            >
+              {stats.map((stat) => (
                 <Box
-                  component="img"
-                  src="https://picsum.photos/seed/snp-stem-lab/800/500"
-                  alt="SNP STEM Innovation Lab"
-                  sx={{ width: '100%', height: 220, objectFit: 'cover', display: 'block' }}
-                />
-                <Box
+                  key={stat.label}
                   sx={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 50%)',
-                  }}
-                />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    p: 3,
+                    textAlign: 'center',
+                    p: 2,
+                    borderRadius: 2,
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E5E7EB',
                   }}
                 >
                   <Typography
                     variant="h5"
-                    sx={{ color: '#fff', fontWeight: 800, fontSize: '20px', letterSpacing: '-0.5px' }}
+                    sx={{ fontWeight: 800, color: '#2D5BE3', fontSize: '22px' }}
                   >
-                    Built for Every Learner
+                    {stat.value}
                   </Typography>
-                  <Typography sx={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px', mt: 0.5 }}>
-                    Class 5 → Postgraduate Level
+                  <Typography variant="caption" sx={{ color: '#6B7280', fontSize: '11px' }}>
+                    {stat.label}
                   </Typography>
                 </Box>
-              </Box>
-
-              {/* Board alignment */}
-              <Box
-                sx={{
-                  p: 2,
-                  borderRadius: 3,
-                  background: 'linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%)',
-                  border: '1px solid #E5E7EB',
-                }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{ fontWeight: 700, color: '#1F2937', mb: 1.5, fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.5px' }}
-                >
-                  Curriculum Aligned With
-                </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                  {boards.map((board) => (
-                    <Chip
-                      key={board}
-                      label={board}
-                      size="small"
-                      sx={{
-                        fontWeight: 600,
-                        fontSize: '12px',
-                        backgroundColor: '#2D5BE3',
-                        color: '#fff',
-                        borderRadius: '20px',
-                      }}
-                    />
-                  ))}
-                </Box>
-              </Box>
-
-              {/* Quick stat row */}
-              <Grid container spacing={2}>
-                {[
-                  { value: '500+', label: 'Labs Deployed' },
-                  { value: '20+', label: 'States Covered' },
-                  { value: '1L+', label: 'Students Reached' },
-                ].map((stat) => (
-                  <Grid item xs={4} key={stat.label}>
-                    <Box
-                      sx={{
-                        textAlign: 'center',
-                        p: 2,
-                        borderRadius: 2,
-                        backgroundColor: '#F8FAFC',
-                        border: '1px solid #E5E7EB',
-                      }}
-                    >
-                      <Typography
-                        variant="h5"
-                        sx={{ fontWeight: 800, color: '#2D5BE3', fontSize: '22px' }}
-                      >
-                        {stat.value}
-                      </Typography>
-                      <Typography variant="caption" sx={{ color: '#6B7280', fontSize: '11px' }}>
-                        {stat.label}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
+              ))}
             </Box>
-          </Grid>
+          </Box>
 
-          {/* Right: 6 feature cards — 2 cols from xs up */}
-          <Grid item xs={12} md={7}>
-            <Grid container spacing={2}>
-              {features.map((feat) => {
-                const IconComp = feat.icon;
-                return (
-                  <Grid item xs={6} key={feat.id}>
-                    <Box
-                      sx={{
-                        p: 2,
-                        borderRadius: 3,
-                        backgroundColor: feat.bg,
-                        border: `1px solid ${feat.color}22`,
-                        height: '100%',
-                        transition: 'all 0.3s ease',
-                        display: 'flex',
-                        gap: 1.5,
-                        alignItems: 'flex-start',
-                        '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: `0 12px 30px ${feat.color}25`,
-                        },
-                      }}
+          {/* ── RIGHT: 6 feature cards in 2-col grid ── */}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
+              gap: 2,
+            }}
+          >
+            {features.map((feat) => {
+              const IconComp = feat.icon;
+              return (
+                <Box
+                  key={feat.id}
+                  sx={{
+                    p: 2,
+                    borderRadius: 3,
+                    backgroundColor: feat.bg,
+                    border: `1px solid ${feat.color}22`,
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    gap: 1.5,
+                    alignItems: 'flex-start',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: `0 12px 30px ${feat.color}25`,
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 38,
+                      height: 38,
+                      borderRadius: 1.5,
+                      backgroundColor: feat.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      boxShadow: `0 4px 10px ${feat.color}40`,
+                    }}
+                  >
+                    <IconComp sx={{ color: '#fff', fontSize: 20 }} />
+                  </Box>
+                  <Box sx={{ flex: 1 }}>
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: 700, color: '#1F2937', fontSize: '14px', mb: 0.5 }}
                     >
-                      <Box
-                        sx={{
-                          width: 38,
-                          height: 38,
-                          borderRadius: 1.5,
-                          backgroundColor: feat.color,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                          boxShadow: `0 4px 10px ${feat.color}40`,
-                        }}
-                      >
-                        <IconComp sx={{ color: '#fff', fontSize: 20 }} />
-                      </Box>
-                      <Box sx={{ flex: 1 }}>
-                      <Typography
-                        variant="h6"
-                        sx={{ fontWeight: 700, color: '#1F2937', fontSize: '14px', mb: 0.5 }}
-                      >
-                        {feat.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: '#6B7280', fontSize: '13px', lineHeight: 1.65 }}
-                      >
-                        {feat.description}
-                      </Typography>
-                      </Box>
-                    </Box>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Grid>
-        </Grid>
+                      {feat.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: '#6B7280', fontSize: '13px', lineHeight: 1.65 }}
+                    >
+                      {feat.description}
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

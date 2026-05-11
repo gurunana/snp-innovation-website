@@ -5,8 +5,7 @@
    ======================================== */
 
 import { useEffect } from 'react';
-import { Box, Typography } from '@mui/material';
-import { Grid } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItResourcingData } from '../store/slices/itResourcingSlice';
 
@@ -85,13 +84,22 @@ const ITResourcingPage = () => {
       <PageBanner
         title="SKILLED TECH TALENT. DEPLOYED ON DEMAND. BUILT FOR REAL PROJECTS."
         subtitle="Bridging the gap between talent and opportunity — SNP Innovation connects skilled IT professionals with organizations that are building the future."
+        bgImage="/images/gallery/headers/ITHeader.png"
       />
 
       {/* 4.2 Overview */}
       <Box sx={{ py: { xs: 3, md: 5 }, backgroundColor: '#ffffff' }}>
-        <div className="container">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
+        <Container maxWidth="xl">
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+              gap: { xs: 4, md: 6 },
+              alignItems: 'center',
+            }}
+          >
+            {/* LEFT: Text + checklist */}
+            <Box>
               <SectionHeader
                 title="Project-Ready IT Professionals"
                 subtitle="We don't just supply resumes — we deploy verified, project-ready IT professionals who integrate seamlessly with your team and deliver from Day 1."
@@ -113,22 +121,24 @@ const ITResourcingPage = () => {
                   </Box>
                 ))}
               </Box>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Box
-                component="img"
-                src="https://picsum.photos/seed/itresource-overview/800/500"
-                alt="IT Resourcing Overview"
-                sx={{
-                  width: '100%',
-                  borderRadius: 3,
-                  boxShadow: 'var(--shadow-lg)',
-                  display: 'block',
-                }}
-              />
-            </Grid>
-          </Grid>
-        </div>
+            </Box>
+
+            {/* RIGHT: Cover image */}
+            <Box
+              component="img"
+              src="/images/gallery/headers/ITResourceCover.png"
+              alt="IT Resourcing Overview"
+              sx={{
+                width: '100%',
+                height: { xs: 'auto', md: '380px' },
+                objectFit: 'cover',
+                borderRadius: 3,
+                boxShadow: 'var(--shadow-lg)',
+                display: 'block',
+              }}
+            />
+          </Box>
+        </Container>
       </Box>
 
       {/* 4.3 Services */}
@@ -142,7 +152,7 @@ const ITResourcingPage = () => {
 
       {/* 4.5 Client Segments */}
       <Box sx={{ py: { xs: 3, md: 5 }, backgroundColor: '#f8f9fa' }}>
-        <div className="container">
+        <Container maxWidth="xl">
           <SectionHeader
             title="Who We Serve"
             subtitle="SNP Innovation supports diverse organizations across sectors and sizes"
@@ -192,7 +202,7 @@ const ITResourcingPage = () => {
               </Box>
             ))}
           </Box>
-        </div>
+        </Container>
       </Box>
 
       {/* 4.6 Talent Pipeline */}

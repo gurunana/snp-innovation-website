@@ -6,13 +6,14 @@
    Props:
    - title (string): Main page heading
    - subtitle (string): Optional subheading text
+   - bgImage (string): Optional background image URL (overlaid on gradient)
    ======================================== */
 
 import { Typography, Box, Breadcrumbs, Link } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-const PageBanner = ({ title, subtitle }) => {
+const PageBanner = ({ title, subtitle, bgImage }) => {
   const location = useLocation();
 
   // Generate breadcrumb from current path
@@ -34,12 +35,47 @@ const PageBanner = ({ title, subtitle }) => {
       sx={{
         background: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #1E293B 100%)',
         color: 'white',
+        minHeight: { xs: '320px', sm: '420px', md: '540px' },
         padding: { xs: '80px 24px 120px', sm: '100px 24px 140px', md: '120px 24px 160px' },
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
+      {/* Background image (optional) */}
+      {bgImage && (
+        <>
+          <Box
+            component="img"
+            src={bgImage}
+            alt=""
+            aria-hidden="true"
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              opacity: 0.85,
+              zIndex: 0,
+            }}
+          />
+          {/* Soft overlay so text stays readable on top of the image */}
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(135deg,rgba(15,23,42,0.55),rgba(30,58,138,0.4))',
+              zIndex: 0,
+            }}
+          />
+        </>
+      )}
+
       {/* Animated background particles */}
       <Box
         sx={{

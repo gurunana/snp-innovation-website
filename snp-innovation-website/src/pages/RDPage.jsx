@@ -37,6 +37,7 @@ const RDPage = () => {
       <PageBanner
         title="FROM CONCEPT TO COMMERCIALIZATION — END-TO-END INNOVATION SUPPORT"
         subtitle="SNP Innovation holds 'Innovation' in its name for a reason. Our R&D vertical delivers complete, production-grade solutions."
+        bgImage="/images/gallery/headers/RnDHeader.png"
       />
 
       {/* 5.2 Why R&D with SNP */}

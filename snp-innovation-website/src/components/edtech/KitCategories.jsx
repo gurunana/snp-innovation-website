@@ -13,7 +13,7 @@ const kitCategories = [
     id: 1,
     name: 'Plug-and-Play Starter Kits',
     level: 'Class 5–8',
-    image: 'https://picsum.photos/seed/kit-starter/800/500',
+    image: '/images/gallery/LabOffering/1-PlugAndPlayStarterKits.png',
     tagline: 'First steps into the world of technology',
     description:
       'Designed for young learners, these kits introduce fundamental concepts in electronics, robotics, and coding through exciting, age-appropriate hands-on experiments.',
@@ -32,7 +32,7 @@ const kitCategories = [
     id: 2,
     name: 'Robotics & Programming Kits',
     level: 'Class 8–12',
-    image: 'https://picsum.photos/seed/kit-robotics/800/500',
+    image: '/images/gallery/LabOffering/2-RoboticsProgrammingKits.png',
     tagline: 'Build, program and race your own robots',
     description:
       'A hands-on robotics programme using Arduino, Raspberry Pi and Python/C++ to create autonomous line-followers, maze-solvers, robotic arms and more.',
@@ -51,7 +51,7 @@ const kitCategories = [
     id: 3,
     name: 'AI & Machine Learning Kits',
     level: 'Class 11+ / College',
-    image: 'https://picsum.photos/seed/kit-ai/800/500',
+    image: '/images/gallery/LabOffering/3-AIMachineLearningKits.png',
     tagline: 'Train models, see AI think in real time',
     description:
       'Cutting-edge AI kits using Jetson Nano and Edge AI platforms to explore computer vision, NLP, gesture & facial recognition, and intelligent systems design.',
@@ -70,7 +70,7 @@ const kitCategories = [
     id: 4,
     name: 'IoT & Smart Systems',
     level: 'College / Research',
-    image: 'https://picsum.photos/seed/kit-iot/800/500',
+    image: '/images/gallery/LabOffering/4-IoTSmartSystems.png',
     tagline: 'Connect everything. Build smarter cities.',
     description:
       'Industrial and research-grade IoT kits covering smart home, smart city, agriculture IoT, MQTT/Cloud integration, and environmental sensor networks.',
@@ -308,7 +308,8 @@ const KitCategories = () => {
           ))}
         </Box>
       </Container>
-    </Box>
+    </Box
+>
   );
 };
 

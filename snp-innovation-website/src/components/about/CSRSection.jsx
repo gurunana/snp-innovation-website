@@ -4,7 +4,7 @@
    4 bullet points verbatim from PDF + 4 impact stats
    ======================================== */
 
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import DevicesIcon from '@mui/icons-material/Devices';
@@ -71,99 +71,94 @@ const CSRSection = ({ csrData = {} }) => {
           <Box sx={{ width: 56, height: 4, background: 'linear-gradient(90deg,#1A3A8F,#CC2020)', borderRadius: 2, mx: 'auto' }} />
         </Box>
 
-        <Grid container spacing={{ xs: 5, md: 10 }} alignItems="center">
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '5fr 7fr' },
+            gap: { xs: 5, md: 8 },
+            alignItems: 'stretch',
+          }}
+        >
 
-          {/* ── LEFT: Dummy CSR image ── */}
-          <Grid item xs={12} md={5}>
-            <Box sx={{ position: 'relative' }}>
+          {/* ── LEFT: CSR image ── */}
+          <Box sx={{ position: 'relative', display: 'flex' }}>
+            <Box
+              sx={{
+                borderRadius: '20px',
+                overflow: 'hidden',
+                width: '100%',
+                minHeight: { xs: '280px', md: '100%' },
+                boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
+                position: 'relative',
+              }}
+            >
               <Box
-                sx={{
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  height: { xs: '260px', md: '400px' },
-                  boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
-                  position: 'relative',
-                }}
-              >
-                {/* Dummy CSR image — replace with real workshop/community photos */}
-                <Box
-                  component="img"
-                  src="https://picsum.photos/seed/csr-stem-rural-school/700/500"
-                  alt="SNP Innovation CSR — Rural STEM Labs"
-                  loading="lazy"
-                  sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-                {/* Orange tint overlay */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(249,115,22,0.3)',
-                    mixBlendMode: 'multiply',
-                  }}
-                />
-                {/* Bottom gradient */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: 0, left: 0, right: 0,
-                    height: '50%',
-                    background: 'linear-gradient(0deg,rgba(0,0,0,0.6),transparent)',
-                  }}
-                />
-
-                {/* Heart icon overlay */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 20, left: 20,
-                    width: 52, height: 52,
-                    borderRadius: '14px',
-                    background: 'rgba(249,115,22,0.85)',
-                    backdropFilter: 'blur(8px)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                  }}
-                >
-                  <FavoriteIcon sx={{ fontSize: 28, color: 'white' }} />
-                </Box>
-
-                {/* Bottom label */}
-                <Box sx={{ position: 'absolute', bottom: 20, left: 20, right: 20 }}>
-                  <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '16px' }}>
-                    Social Innovation in Action
-                  </Typography>
-                  <Typography sx={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px', mt: 0.3 }}>
-                    Reaching every corner of India
-                  </Typography>
-                </Box>
-              </Box>
-
-              {/* Stat badge */}
+                component="img"
+                src="/images/gallery/headers/Impact.jpg"
+                alt="SNP Innovation CSR — Rural STEM Labs"
+                loading="lazy"
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+              {/* Bottom gradient for text legibility */}
               <Box
                 sx={{
                   position: 'absolute',
-                  bottom: { xs: -20, md: -24 },
-                  right: { xs: 20, md: -24 },
+                  bottom: 0, left: 0, right: 0,
+                  height: '40%',
+                  background: 'linear-gradient(0deg,rgba(0,0,0,0.65),transparent)',
+                }}
+              />
+
+              {/* Heart icon overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 20, left: 20,
+                  width: 52, height: 52,
+                  borderRadius: '14px',
+                  background: 'rgba(249,115,22,0.92)',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                }}
+              >
+                <FavoriteIcon sx={{ fontSize: 28, color: 'white' }} />
+              </Box>
+
+              {/* Bottom label */}
+              <Box sx={{ position: 'absolute', bottom: 20, left: 20, right: 20 }}>
+                <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '16px' }}>
+                  Social Innovation in Action
+                </Typography>
+                <Typography sx={{ color: 'rgba(255,255,255,0.85)', fontSize: '13px', mt: 0.3 }}>
+                  Reaching every corner of India
+                </Typography>
+              </Box>
+
+              {/* Stat badge — moved inside image, top-right */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 20, right: 20,
                   background: 'white',
                   borderRadius: '14px',
-                  px: 2.5, py: 2,
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+                  px: 2, py: 1.5,
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.2)',
                   textAlign: 'center',
                 }}
               >
-                <Typography sx={{ fontWeight: 900, fontSize: '26px', color: '#CC2020', lineHeight: 1 }}>
+                <Typography sx={{ fontWeight: 900, fontSize: '22px', color: '#CC2020', lineHeight: 1 }}>
                   5,000+
                 </Typography>
-                <Typography sx={{ fontSize: '12px', color: '#64748B', fontWeight: 600, mt: 0.3 }}>
+                <Typography sx={{ fontSize: '11px', color: '#64748B', fontWeight: 600, mt: 0.3 }}>
                   Students Impacted
                 </Typography>
               </Box>
             </Box>
-          </Grid>
+          </Box>
 
           {/* ── RIGHT: Text + initiatives ── */}
-          <Grid item xs={12} md={7}>
+          <Box>
             <Box sx={{ pl: { xs: 0, md: 2 } }}>
 
               {/* Intro text — exact from PDF */}
@@ -247,8 +242,8 @@ const CSRSection = ({ csrData = {} }) => {
                 ))}
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

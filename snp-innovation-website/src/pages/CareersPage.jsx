@@ -7,8 +7,7 @@
 import { Box } from '@mui/material';
 import WhyWorkHere from '../components/careers/WhyWorkHere';
 import JobListings from '../components/careers/JobListings';
-import InternshipProgram from '../components/careers/InternshipProgram';
-import CandidateRegistration from '../components/careers/CandidateRegistration';
+import CareerApplications from '../components/careers/CareerApplications';
 import CareersBanner from '../components/careers/CareersBanner';
 
 const CareersPage = () => (
@@ -22,11 +21,8 @@ const CareersPage = () => (
     {/* Current Job Openings */}
     <JobListings />
 
-    {/* Internship Program */}
-    <InternshipProgram />
-
-    {/* IT Candidate Registration */}
-    <CandidateRegistration />
+    {/* Tabbed Applications — Internship + IT Candidate Registration */}
+    <CareerApplications />
   </Box>
 );
 

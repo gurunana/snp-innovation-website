@@ -19,6 +19,7 @@ const IncubationPage = () => {
       <PageBanner
         title="FROM YOUR IDEA TO THE MARKET — WE BUILD IT WITH YOU"
         subtitle="SNP Innovation Incubation Center supports early-stage technology startups with everything they need to go from ideation to commercialization."
+        bgImage="/images/gallery/headers/IncubationHeader.png"
       />
 
       {/* Why Incubate with SNP Innovation */}

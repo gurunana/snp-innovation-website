@@ -32,7 +32,7 @@ const EMPTY = {
   cvFile: null,
 };
 
-const CandidateRegistration = () => {
+const CandidateRegistration = ({ embedded = false }) => {
   const [form, setForm] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -94,29 +94,31 @@ const CandidateRegistration = () => {
   return (
     <Box sx={{ py: { xs: 4, md: 7 }, background: '#0F172A' }}>
       <Container maxWidth="md">
-        {/* Section header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7 } }}>
-          <Typography sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', mb: 1 }}>
-            IT RESOURCING
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 800,
-              fontSize: { xs: '26px', md: '36px' },
-              background: 'linear-gradient(135deg,#FFFFFF,#BFDBFE)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              mb: 2,
-            }}
-          >
-            IT Candidate Registration
-          </Typography>
-          <Typography sx={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', maxWidth: 520, mx: 'auto' }}>
-            Register your profile and let our IT Resourcing team match you with the right opportunity.
-          </Typography>
-        </Box>
+        {/* Section header — hidden when embedded inside the tabbed CareerApplications wrapper */}
+        {!embedded && (
+          <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7 } }}>
+            <Typography sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', mb: 1 }}>
+              IT RESOURCING
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 800,
+                fontSize: { xs: '26px', md: '36px' },
+                background: 'linear-gradient(135deg,#FFFFFF,#BFDBFE)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                mb: 2,
+              }}
+            >
+              IT Candidate Registration
+            </Typography>
+            <Typography sx={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', maxWidth: 520, mx: 'auto' }}>
+              Register your profile and let our IT Resourcing team match you with the right opportunity.
+            </Typography>
+          </Box>
+        )}
 
         <Card
           sx={{
@@ -315,7 +317,6 @@ const darkField = {
   '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.55)' },
   '& .MuiInputLabel-root.Mui-focused': { color: '#2D5BE3' },
   '& .MuiSelect-icon': { color: 'rgba(255,255,255,0.55)' },
-  '& .MuiMenuItem-root': { color: '#0F172A' },
 };
 
 export default CandidateRegistration;

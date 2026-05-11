@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 import PageBanner from '../components/common/PageBanner';
 import WorkshopCategories from '../components/workshops/WorkshopCategories';
 import UpcomingEvents from '../components/workshops/UpcomingEvents';
-import PastEvents from '../components/workshops/PastEvents';
+// import PastEvents from '../components/workshops/PastEvents'; // HIDDEN per user request
 import HostWorkshop from '../components/workshops/HostWorkshop';
 
 const WorkshopsPage = () => {
@@ -17,6 +17,7 @@ const WorkshopsPage = () => {
       <PageBanner
         title="LEARN. BUILD. INNOVATE. — SNP INNOVATION WORKSHOPS & EVENTS"
         subtitle="Hands-on learning experiences that inspire, educate, and ignite the innovator within every participant."
+        bgImage="/images/gallery/headers/WorkshopHeader.png"
       />
 
       {/* Workshop Categories with tabs */}
@@ -25,8 +26,8 @@ const WorkshopsPage = () => {
       {/* Upcoming Events */}
       <UpcomingEvents />
 
-      {/* Past Events Photo Grid with Stats */}
-      <PastEvents />
+      {/* Past Events Photo Grid with Stats — HIDDEN per user request */}
+      {/* <PastEvents /> */}
 
       {/* Host a Workshop Form */}
       <HostWorkshop />

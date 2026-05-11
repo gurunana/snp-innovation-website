@@ -7,27 +7,28 @@ import { Box, Container, Typography } from '@mui/material';
 const CareersBanner = () => (
   <Box
     sx={{
-      minHeight: { xs: '160px', md: '280px' },
+      minHeight: { xs: '320px', sm: '420px', md: '540px' },
       background: 'linear-gradient(135deg,#0F172A 0%,#0F2560 50%,#1A3A8F 100%)',
       display: 'flex',
       alignItems: 'center',
       position: 'relative',
       overflow: 'hidden',
+      py: { xs: 6, md: 10 },
     }}
   >
     {/* Background image */}
     <Box
       component="img"
-      src="https://picsum.photos/seed/snp-careers-banner/1400/500"
+      src="/images/gallery/headers/CarrerHeader.png"
       alt="Careers Banner"
-      sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.1 }}
+      sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', opacity: 0.85 }}
     />
-    {/* Dark overlay */}
+    {/* Soft overlay */}
     <Box
       sx={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(135deg,rgba(15,23,42,0.9),rgba(30,64,175,0.75))',
+        background: 'linear-gradient(135deg,rgba(15,23,42,0.55),rgba(30,64,175,0.4))',
       }}
     />
 

@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import SendIcon from '@mui/icons-material/Send';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const FooterCTA = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,12 +31,6 @@ const FooterCTA = () => {
       label: 'Send Us Your Requirement',
       action: () => navigate('/enquiry'),
       style: 'outlined', // white outlined
-    },
-    {
-      icon: LocationOnIcon,
-      label: 'Visit Our Innovation Hub',
-      action: () => navigate('/contact'),
-      style: 'text', // text link with arrow
     },
   ];
 

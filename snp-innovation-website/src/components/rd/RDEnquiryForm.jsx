@@ -22,7 +22,7 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material';
-import { Grid } from '@mui/material';
+// Grid removed — using CSS Grid via Box instead
 import SectionHeader from '../common/SectionHeader';
 
 // ── Field config defined outside return ───────────────────────────────────
@@ -207,11 +207,11 @@ const RDEnquiryForm = () => {
           }}
         >
           <Box component="form" onSubmit={handleSubmit} noValidate>
-            <Grid container spacing={2.5}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' }, gap: 2.5 }}>
               {formFields.map((field) => {
-                const colSm = field.colSpan === 12 ? 12 : 6;
+                const fullWidthCol = field.colSpan === 12;
                 return (
-                  <Grid key={field.name} item xs={12} sm={colSm}>
+                  <Box key={field.name} sx={{ gridColumn: fullWidthCol ? '1 / -1' : 'auto' }}>
                     {field.type === 'select' ? (
                       <FormControl fullWidth error={!!errors[field.name]}>
                         <InputLabel sx={{ '&.Mui-focused': { color: '#2D5BE3' } }}>
@@ -255,12 +255,12 @@ const RDEnquiryForm = () => {
                         sx={inputSx}
                       />
                     )}
-                  </Grid>
+                  </Box>
                 );
               })}
 
               {/* IP Filing & Certification checkboxes */}
-              <Grid item xs={12}>
+              <Box sx={{ gridColumn: '1 / -1' }}>
                 <Box
                   sx={{
                     p: 3,
@@ -305,8 +305,8 @@ const RDEnquiryForm = () => {
                     />
                   </Box>
                 </Box>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
 
             <Box sx={{ textAlign: 'center', mt: 4 }}>
               <Button

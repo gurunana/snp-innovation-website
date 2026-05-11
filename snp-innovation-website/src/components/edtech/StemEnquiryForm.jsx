@@ -332,8 +332,10 @@ const StemEnquiryForm = () => {
                 type="date"
                 value={formData.callbackDate}
                 onChange={handleChange}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{ startAdornment: <InputAdornment position="start"><CalendarTodayIcon sx={{ color: '#2D5BE3', fontSize: 20 }} /></InputAdornment> }}
+                slotProps={{
+                  inputLabel: { shrink: true },
+                  input: { startAdornment: <InputAdornment position="start"><CalendarTodayIcon sx={{ color: '#2D5BE3', fontSize: 20 }} /></InputAdornment> },
+                }}
                 sx={inputStyles}
               />
 

@@ -33,7 +33,7 @@ const UPCOMING_EVENTS = [
       'A full-day hands-on robotics session for students of Class 8–12. Build your first robot, learn line-following algorithms, and compete in a mini tournament.',
     seats: '60 seats',
     seatsLeft: '22 seats left',
-    image: 'https://picsum.photos/seed/robotics-event/800/500',
+    image: '/images/gallery/upcomingIvents/UpcomingEvent1.jpg',
   },
   {
     id: 2,
@@ -47,7 +47,7 @@ const UPCOMING_EVENTS = [
       'A power-packed masterclass for manufacturing and operations leaders on IIoT, AI-driven process optimization, and digital twin adoption strategies.',
     seats: '80 seats',
     seatsLeft: '35 seats left',
-    image: 'https://picsum.photos/seed/industry40-event/800/500',
+    image: '/images/gallery/upcomingIvents/UpcomingEvent2.jpg',
   },
   {
     id: 3,
@@ -61,7 +61,7 @@ const UPCOMING_EVENTS = [
       'Learn the art of investor storytelling, financial slides, and live pitch practice with feedback from active angel investors and startup mentors.',
     seats: '40 seats',
     seatsLeft: '12 seats left',
-    image: 'https://picsum.photos/seed/pitch-event/800/500',
+    image: '/images/gallery/upcomingIvents/UpcomingEvent3.jpg',
   },
 ];
 

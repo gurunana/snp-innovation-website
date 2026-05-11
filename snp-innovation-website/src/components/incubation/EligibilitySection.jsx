@@ -13,7 +13,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { Grid } from '@mui/material';
+// Grid removed — using CSS Grid via Box instead
 import SectionHeader from '../common/SectionHeader';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SchoolIcon from '@mui/icons-material/SchoolOutlined';
@@ -64,9 +64,16 @@ const EligibilitySection = () => {
           subtitle="Our incubation program welcomes diverse innovators at various stages of their journey"
         />
 
-        <Grid container spacing={4}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' },
+            gap: 4,
+            alignItems: 'stretch',
+          }}
+        >
           {/* Eligibility Profiles */}
-          <Grid item xs={12} md={7}>
+          <Box>
             <Card sx={{ height: '100%', border: '1px solid #E2E8F0' }}>
               <CardContent sx={{ padding: { xs: '24px', sm: '40px' } }}>
                 <Typography
@@ -124,10 +131,10 @@ const EligibilitySection = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Grid>
+          </Box>
 
           {/* Application Timeline */}
-          <Grid item xs={12} md={5}>
+          <Box>
             <Card
               sx={{
                 height: '100%',
@@ -209,8 +216,8 @@ const EligibilitySection = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </div>
     </Box>
   );

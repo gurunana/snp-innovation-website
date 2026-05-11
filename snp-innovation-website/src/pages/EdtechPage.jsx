@@ -114,6 +114,7 @@ const EdtechPage = () => {
       <PageBanner
         title="FUTURE-READY STEM INNOVATION LABS FOR SCHOOLS & COLLEGES"
         subtitle="Where Curiosity Meets Technology — Building the Innovators of Tomorrow, Today."
+        bgImage="/images/gallery/headers/edTechHeader.png"
       />
 
       {/* ── Problem / Solution ── */}

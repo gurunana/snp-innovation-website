@@ -70,7 +70,7 @@ const AboutBanner = () => (
   <Box
     sx={{
       width: '100%',
-      minHeight: { xs: '160px', md: '260px' },
+      minHeight: { xs: '320px', sm: '420px', md: '540px' },
       background: 'linear-gradient(135deg, #0F172A 0%, #0F2560 50%, #1A3A8F 100%)',
       color: 'white',
       display: 'flex',
@@ -78,12 +78,13 @@ const AboutBanner = () => (
       justifyContent: 'center',
       position: 'relative',
       overflow: 'hidden',
+      py: { xs: 6, md: 10 },
     }}
   >
-    {/* Background dummy image */}
+    {/* Background image */}
     <Box
       component="img"
-      src="https://picsum.photos/seed/snp-team-collage/1400/500"
+      src="/images/gallery/headers/AboutUsHeader.jpg"
       alt="SNP Innovation Team"
       sx={{
         position: 'absolute',
@@ -91,16 +92,17 @@ const AboutBanner = () => (
         width: '100%',
         height: '100%',
         objectFit: 'cover',
-        opacity: 0.18,
+        objectPosition: 'center',
+        opacity: 0.85,
       }}
     />
 
-    {/* Dark overlay */}
+    {/* Soft overlay */}
     <Box
       sx={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(30,58,143,0.7) 100%)',
+        background: 'linear-gradient(135deg, rgba(15,23,42,0.55) 0%, rgba(30,58,143,0.4) 100%)',
       }}
     />
 
@@ -154,7 +156,6 @@ const AboutBanner = () => (
           fontSize: { xs: '32px', sm: '44px', md: '56px' },
           fontWeight: 900,
           lineHeight: 1.15,
-          mb: 2,
           background: 'linear-gradient(135deg, #FFFFFF 0%, #BFDBFE 100%)',
           backgroundClip: 'text',
           WebkitBackgroundClip: 'text',

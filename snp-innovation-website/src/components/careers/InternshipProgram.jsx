@@ -7,7 +7,6 @@ import { useState } from 'react';
 import {
   Box,
   Container,
-  Grid,
   Card,
   CardContent,
   Typography,
@@ -86,7 +85,7 @@ const EMPTY_FORM = {
   skills: '', whySNP: '', cvFile: null,
 };
 
-const InternshipProgram = () => {
+const InternshipProgram = ({ embedded = false }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
@@ -145,28 +144,38 @@ const InternshipProgram = () => {
   return (
     <Box sx={{ py: { xs: 4, md: 7 }, background: 'linear-gradient(135deg,#F8FAFC,#EFF6FF)' }}>
       <Container maxWidth="xl">
-        {/* Section header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 3, md: 5 } }}>
-          <Typography sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', mb: 1 }}>
-            GROW WITH US
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{ fontWeight: 800, fontSize: { xs: '28px', md: '38px' }, color: '#0F172A', mb: 2 }}
-          >
-            Internship Program
-          </Typography>
-          <Typography sx={{ color: '#64748B', maxWidth: 560, mx: 'auto', fontSize: '16px' }}>
-            5 tracks designed to give you real experience inside India's most dynamic innovation company.
-          </Typography>
-          <Box
-            sx={{ width: 56, height: 4, background: 'linear-gradient(90deg,#1A3A8F,#CC2020)', borderRadius: 2, mx: 'auto', mt: 3 }}
-          />
-        </Box>
+        {/* Section header — hidden when embedded inside the tabbed CareerApplications wrapper */}
+        {!embedded && (
+          <Box sx={{ textAlign: 'center', mb: { xs: 3, md: 5 } }}>
+            <Typography sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', mb: 1 }}>
+              GROW WITH US
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{ fontWeight: 800, fontSize: { xs: '28px', md: '38px' }, color: '#0F172A', mb: 2 }}
+            >
+              Internship Program
+            </Typography>
+            <Typography sx={{ color: '#64748B', maxWidth: 560, mx: 'auto', fontSize: '16px' }}>
+              5 tracks designed to give you real experience inside India's most dynamic innovation company.
+            </Typography>
+            <Box
+              sx={{ width: 56, height: 4, background: 'linear-gradient(90deg,#1A3A8F,#CC2020)', borderRadius: 2, mx: 'auto', mt: 3 }}
+            />
+          </Box>
+        )}
 
-        <Grid container spacing={5}>
+        {/* CSS Grid — left selector (5fr) + right form (7fr), proper side-by-side on desktop */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '5fr 7fr' },
+            gap: { xs: 3, md: 5 },
+            alignItems: 'start',
+          }}
+        >
           {/* Left — Internship type selector */}
-          <Grid item xs={12} md={5}>
+          <Box>
             {/* Vertical tabs */}
             <Box sx={{ bgcolor: 'white', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', overflow: 'hidden', mb: 3 }}>
               <Tabs
@@ -227,10 +236,10 @@ const InternshipProgram = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Grid>
+          </Box>
 
           {/* Right — Application form */}
-          <Grid item xs={12} md={7}>
+          <Box>
             <Card sx={{ borderRadius: '18px', border: '1px solid #E2E8F0', boxShadow: 'none' }}>
               <CardContent sx={{ p: { xs: 3, md: 4 } }}>
                 <Typography variant="h6" sx={{ fontWeight: 800, fontSize: '18px', color: '#0F172A', mb: 3 }}>
@@ -303,7 +312,7 @@ const InternshipProgram = () => {
                     <TextField
                       fullWidth size="small" label="Preferred Start Date" name="startDate"
                       type="date"
-                      InputLabelProps={{ shrink: true }}
+                      slotProps={{ inputLabel: { shrink: true } }}
                       value={form.startDate} onChange={handleChange}
                     />
 
@@ -384,8 +393,8 @@ const InternshipProgram = () => {
                 </Box>
               </CardContent>
             </Card>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

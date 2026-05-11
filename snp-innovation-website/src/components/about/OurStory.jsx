@@ -4,12 +4,12 @@
    3 paragraphs verbatim from PDF + key highlights
    ======================================== */
 
-import { Box, Container, Grid, Typography, Chip } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const OurStory = ({ storyData = {} }) => {
   const {
-    yearFounded = 2015,
+    yearFounded = 2020,
     paragraphs = [],
     highlights = [],
   } = storyData;
@@ -34,82 +34,73 @@ const OurStory = ({ storyData = {} }) => {
   return (
     <Box sx={{ width: '100%', py: { xs: 4, md: 7 }, backgroundColor: '#FFFFFF' }}>
       <Container maxWidth="xl">
-        <Grid
-          container
-          spacing={{ xs: 5, md: 10 }}
-          alignItems="center"
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '5fr 7fr' },
+            gap: { xs: 5, md: 8 },
+            alignItems: 'center',
+          }}
         >
 
-          {/* ── LEFT: Dummy image — replace with real team/office photo ── */}
-          <Grid item xs={12} md={5}>
-            <Box sx={{ position: 'relative' }}>
-              {/* Main image */}
+          {/* ── LEFT: Cover image ── */}
+          <Box sx={{ position: 'relative' }}>
+            {/* Main image */}
+            <Box
+              sx={{
+                borderRadius: '20px',
+                overflow: 'hidden',
+                height: { xs: '280px', md: '440px' },
+                boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
+                position: 'relative',
+              }}
+            >
               <Box
-                sx={{
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  height: { xs: '280px', md: '440px' },
-                  boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
-                  position: 'relative',
-                }}
-              >
-                <Box
-                  component="img"
-                  src="https://picsum.photos/seed/snp-innovation-office/700/500"
-                  alt="SNP Innovation — Our Story"
-                  sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-                {/* Blue tint overlay */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(30,64,175,0.35)',
-                    mixBlendMode: 'multiply',
-                  }}
-                />
-              </Box>
-
-              {/* Founded badge */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  bottom: { xs: -20, md: -28 },
-                  left: { xs: 20, md: -28 },
-                  background: 'white',
-                  borderRadius: '16px',
-                  px: 3, py: 2,
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
-                  textAlign: 'center',
-                  minWidth: '120px',
-                }}
-              >
-                <Typography sx={{ fontWeight: 900, fontSize: '28px', color: '#1A3A8F', lineHeight: 1 }}>
-                  {yearFounded}
-                </Typography>
-                <Typography sx={{ fontSize: '12px', color: '#64748B', fontWeight: 600, mt: 0.3 }}>
-                  Year Founded
-                </Typography>
-              </Box>
-
-              {/* Decorative dot grid */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: -20, right: -20,
-                  width: '80px', height: '80px',
-                  backgroundImage: 'radial-gradient(circle, #1A3A8F 1.5px, transparent 1.5px)',
-                  backgroundSize: '12px 12px',
-                  opacity: 0.25,
-                  display: { xs: 'none', md: 'block' },
-                }}
+                component="img"
+                src="/images/gallery/headers/aboutUsCover.png"
+                alt="SNP Innovation — Our Story"
+                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </Box>
-          </Grid>
+
+            {/* Founded badge */}
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: { xs: -20, md: -28 },
+                left: { xs: 20, md: -28 },
+                background: 'white',
+                borderRadius: '16px',
+                px: 3, py: 2,
+                boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+                textAlign: 'center',
+                minWidth: '120px',
+              }}
+            >
+              <Typography sx={{ fontWeight: 900, fontSize: '28px', color: '#1A3A8F', lineHeight: 1 }}>
+                {yearFounded}
+              </Typography>
+              <Typography sx={{ fontSize: '12px', color: '#64748B', fontWeight: 600, mt: 0.3 }}>
+                Year Founded
+              </Typography>
+            </Box>
+
+            {/* Decorative dot grid */}
+            <Box
+              sx={{
+                position: 'absolute',
+                top: -20, right: -20,
+                width: '80px', height: '80px',
+                backgroundImage: 'radial-gradient(circle, #1A3A8F 1.5px, transparent 1.5px)',
+                backgroundSize: '12px 12px',
+                opacity: 0.25,
+                display: { xs: 'none', md: 'block' },
+              }}
+            />
+          </Box>
 
           {/* ── RIGHT: Story text ── */}
-          <Grid item xs={12} md={7}>
-            <Box sx={{ pl: { xs: 0, md: 2 } }}>
+          <Box sx={{ pl: { xs: 0, md: 2 } }}>
               {/* Section label */}
               <Typography
                 sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', mb: 1 }}
@@ -134,12 +125,11 @@ const OurStory = ({ storyData = {} }) => {
                   key={i}
                   variant="body1"
                   sx={{
-                    color: '#475569',
+                    color: i === 1 ? '#0F172A' : '#475569',
                     lineHeight: 1.85,
                     fontSize: '16px',
                     mb: i < displayParagraphs.length - 1 ? 3 : 4,
                     fontWeight: i === 1 ? 600 : 400, // emphasise the 2nd paragraph
-                    color: i === 1 ? '#0F172A' : '#475569',
                   }}
                 >
                   {para}
@@ -170,8 +160,7 @@ const OurStory = ({ storyData = {} }) => {
                 </Box>
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
       </Container>
     </Box>
   );

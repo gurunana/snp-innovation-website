@@ -21,31 +21,37 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import VideoGallery from '../components/gallery/VideoGallery';
 
 /* ─── Categories ─────────────────────────────────────── */
-const CATEGORIES = ['All', 'Lab Tools', 'Robot Kits', 'STEM Kits', 'Activity Kits', 'Inno-Kits'];
+const CATEGORIES = ['All', 'STEM Kits', 'Activity Kits', 'Inno-Kits'];
+
+/* ─── Activity image filenames (act_1.jpg ... act_29.jpg, act_30.jpeg ... act_49.jpeg) ─── */
+const ACTIVITY_PHOTOS = Array.from({ length: 49 }, (_, i) => {
+  const num = i + 1;
+  const ext = num <= 29 ? 'jpg' : 'jpeg';
+  return {
+    id: 100 + num,
+    file: `/images/gallery/Activity/act_${num}.${ext}`,
+    category: 'Activity Kits',
+    title: `Hands-On Activity Session ${num}`,
+    desc: 'Students engaged in interactive learning with SNP Innovation activity kits',
+  };
+});
 
 /* ─── Real Product Photos ─────────────────────────────
    Files go in: /public/images/gallery/
    onError fallback shows placeholder if file missing  */
 const PHOTOS = [
-  { id: 1,  file: '/images/gallery/1.jpeg',      category: 'Lab Tools',     title: 'Electronics Lab Tools Set',         desc: 'Digital multimeters, soldering irons, wire strippers, glue gun & Taparia tool box' },
-  { id: 2,  file: '/images/gallery/2.jpeg',      category: 'Lab Tools',     title: 'Soldering Station Kit',             desc: 'Complete soldering station with iron holders, solder wire and accessories' },
-  { id: 3,  file: '/images/gallery/3.jpeg',      category: 'Robot Kits',    title: 'SNP Robot 1 – 4-Wheel Kit',         desc: 'ESP-32 powered 4-wheel robot with PCB, motors, Li-ion batteries and components' },
-  { id: 4,  file: '/images/gallery/4.jpeg',      category: 'Robot Kits',    title: 'SNP Robot 2 – Mini Bot',            desc: 'Compact 2-wheel SNP robot PCB with controller panel and motor assembly' },
-  { id: 5,  file: '/images/gallery/5.jpeg',      category: 'Robot Kits',    title: 'Robot 1 – Assembled (Top View)',    desc: 'Top view of Robot 1 board with L298N motor driver and battery holder' },
-  { id: 6,  file: '/images/gallery/6.jpeg',      category: 'Robot Kits',    title: 'Robot 1 – Side View',               desc: 'Fully assembled SNP Robot 1 showing PCB chassis with yellow wheels' },
   { id: 7,  file: '/images/gallery/7.jpeg',      category: 'STEM Kits',     title: 'STEM Sensor Kit Collection (Open)', desc: '9 sensor kits: Soil, Remote, Motion PIR, Water, Solar Energy, Running LED, Heat, Fire, Night Sensor' },
   { id: 8,  file: '/images/gallery/8.jpeg',      category: 'STEM Kits',     title: 'Sensor Kit Grid – 9 in 1',          desc: 'Full collection of labelled STEM Innovation Lab sensor kits in clear boxes' },
   { id: 9,  file: '/images/gallery/9.jpeg',      category: 'STEM Kits',     title: 'Solar Energy Kit',                  desc: 'Solar panel with LED strip and DC connector for renewable energy learning' },
   { id: 10, file: '/images/gallery/10.jpeg',     category: 'STEM Kits',     title: 'Soil Sensor Kit',                   desc: 'Soil moisture sensor with PCB controller, LED indicator and toggle switch' },
   { id: 11, file: '/images/gallery/11.jpeg',     category: 'STEM Kits',     title: 'Running LED Sensor',                desc: 'Running LEDs board with speed control, IC chips and DC jack input' },
+  { id: 19, file: '/images/gallery/19.jpeg',     category: 'STEM Kits',     title: 'STEM Learning Session',             desc: 'Interactive hands-on learning with STEM sensor kits' },
   { id: 12, file: '/images/gallery/12.jpeg',     category: 'Activity Kits', title: 'Activity Learning Kits – Open',     desc: 'Educational activity boxes with Farm Animals, DIY Skeleton, Wind Generator and Family charts' },
+  ...ACTIVITY_PHOTOS,
   { id: 13, file: '/images/gallery/13.jpeg',     category: 'Inno-Kits',     title: 'Inno-Kits – Plant Needs Water',     desc: 'Build your own smart irrigation system – Ages 8+, includes circuit board, sensor, pump & guide' },
   { id: 14, file: '/images/gallery/14.jpeg',     category: 'Inno-Kits',     title: 'Inno-Kits – Open Box View',         desc: 'Inside view showing solar panel, breadboard, seeds, components neatly organised' },
   { id: 15, file: '/images/gallery/15.jpeg',     category: 'Inno-Kits',     title: 'Robotic Explorer Kit – Red Bot',    desc: 'Robotic Explorer Kit with red PCB, motors, battery and QR video guide' },
   { id: 16, file: '/images/gallery/16.jpeg',     category: 'Inno-Kits',     title: 'Robotic Explorer Kit – Yellow Bot', desc: 'Large 4-wheel bot with yellow wheels, L298N driver and motor assembly' },
-  { id: 17, file: '/images/gallery/17.jpeg',     category: 'Lab Tools',     title: 'Advanced Lab Equipment',            desc: 'Professional grade electronics testing and measurement tools' },
-  { id: 18, file: '/images/gallery/18.jpeg',     category: 'Robot Kits',    title: 'Robot Assembly Workshop',           desc: 'Students building and programming their SNP robots' },
-  { id: 19, file: '/images/gallery/19.jpeg',     category: 'STEM Kits',     title: 'STEM Learning Session',             desc: 'Interactive hands-on learning with STEM sensor kits' },
 ];
 
 /* placeholder if image file not yet present */
@@ -315,14 +321,34 @@ const PhotoCard = ({ photo, onClick }) => (
 const GalleryBanner = () => (
   <Box
     sx={{
-      minHeight: { xs: '160px', md: '260px' },
+      minHeight: { xs: '320px', sm: '420px', md: '540px' },
       background: 'linear-gradient(135deg,#0F172A 0%,#0F2560 55%,#1A3A8F 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      position: 'relative',
+      overflow: 'hidden',
+      py: { xs: 6, md: 10 },
     }}
   >
-    <Box sx={{ textAlign: 'center', px: 3 }}>
+    {/* Background image */}
+    <Box
+      component="img"
+      src="/images/gallery/headers/GallaryHeader.png"
+      alt=""
+      aria-hidden="true"
+      sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', opacity: 0.85 }}
+    />
+    {/* Soft overlay for text readability */}
+    <Box
+      sx={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(135deg,rgba(15,23,42,0.55),rgba(30,64,175,0.4))',
+      }}
+    />
+
+    <Box sx={{ textAlign: 'center', px: 3, position: 'relative', zIndex: 1 }}>
       <Typography
         component="h1"
         sx={{

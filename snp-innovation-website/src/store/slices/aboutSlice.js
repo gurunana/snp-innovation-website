@@ -26,7 +26,7 @@ const initialState = {
   // ── 2.2 OUR STORY ───────────────────────────────────────────────
   story: {
     title: 'Our Story',
-    yearFounded: 2015,
+    yearFounded: 2020,
     // Three paragraphs verbatim from PDF section 2.2
     paragraphs: [
       'SNP Innovation was founded with a singular belief: that India\'s greatest untapped potential lies in the space between academic knowledge and real-world application. Our founders — technologists, educators, and innovators — recognized that students were graduating without hands-on skills, industries were struggling to find job-ready talent, and brilliant startup ideas were dying without the right infrastructure and mentorship.',
