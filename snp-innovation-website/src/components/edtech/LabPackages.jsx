@@ -31,7 +31,7 @@ const packages = [
       'Curriculum aligned with CBSE/ICSE',
       '6-month AMC support',
     ],
-    image: 'https://picsum.photos/seed/lab-starter/800/500',
+    image: '/images/gallery/lab%20packeges%20and%20levels/1.png',
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ const packages = [
       'Competition prep — ATL, Olympiads',
       '12-month AMC with on-site visits',
     ],
-    image: 'https://picsum.photos/seed/lab-advanced/800/500',
+    image: '/images/gallery/lab%20packeges%20and%20levels/2.png',
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ const packages = [
       'IP support & hackathon sponsorship',
       '24-month AMC + dedicated support engineer',
     ],
-    image: 'https://picsum.photos/seed/lab-research/800/500',
+    image: '/images/gallery/lab%20packeges%20and%20levels/3.png',
   },
 ];
 
@@ -147,6 +147,8 @@ const LabPackages = () => {
                       component="img"
                       src={pkg.image}
                       alt={pkg.name}
+                      loading="lazy"
+                      decoding="async"
                       sx={{
                         width: '100%',
                         height: '100%',
@@ -305,3 +307,9 @@ const LabPackages = () => {
 };
 
 export default LabPackages;
+
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK

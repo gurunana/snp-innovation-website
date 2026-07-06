@@ -19,7 +19,7 @@ export const fetchEdtechData = createAsyncThunk(
 );
 
 // Async thunk for STEM lab enquiry form submission
-// Sends data to dhokeayush0@gmail.com via Web3Forms (free, no server needed)
+// Sends data to nikhilgujar902@gmail.com via Web3Forms (free, no server needed)
 export const submitEdtechEnquiry = createAsyncThunk(
   'edtech/submitEnquiry',
   async (enquiryData, { rejectWithValue }) => {

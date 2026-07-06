@@ -3,8 +3,9 @@
    Orchestrates all EdTech sections in order
    ======================================== */
 
-import { useEffect } from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
+import { Box, Typography, Container, Dialog, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEdtechData } from '../store/slices/edtechSlice';
 
@@ -84,15 +85,29 @@ const targetInstitutions = [
   { id: 7, name: 'Skill Development Centres', icon: '🔑', desc: 'Vocational training institutes aligned with NSDC & PMKVY programmes' },
 ];
 
-// Gallery images — defined outside return
-const galleryImages = [
-  { id: 1, seed: 'stem-lab-1', label: 'Robotics Workshop' },
-  { id: 2, seed: 'stem-lab-2', label: 'AI Lab in Action' },
-  { id: 3, seed: 'stem-lab-3', label: 'IoT Projects' },
-  { id: 4, seed: 'stem-lab-4', label: 'Electronics Lab' },
-  { id: 5, seed: 'stem-lab-5', label: 'Student Innovations' },
-  { id: 6, seed: 'stem-lab-6', label: 'Teacher Training' },
+// Pool of real gallery photos from /public/images/gallery/Activity/
+// We pick 6 random ones per page load so visitors see a fresh selection each visit.
+const GALLERY_POOL = [
+  ...Array.from({ length: 29 }, (_, i) => `/images/gallery/Activity/act_${i + 1}.jpg`),
+  ...Array.from({ length: 20 }, (_, i) => `/images/gallery/Activity/act_${i + 30}.jpeg`),
 ];
+
+const GALLERY_LABELS = [
+  'STEM Lab in Action', 'Robotics Workshop', 'AI & IoT Projects',
+  'Electronics Lab', 'Student Innovations', 'Hands-on Learning',
+  'Workshop Session', 'Teacher Training', 'Lab Demonstration',
+  'Collaborative Learning', 'Maker Space', 'Innovation Showcase',
+];
+
+// Fisher-Yates shuffle returning the first `n` items
+const pickRandom = (arr, n) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+};
 
 const EdtechPage = () => {
   const dispatch = useDispatch();
@@ -103,6 +118,23 @@ const EdtechPage = () => {
       dispatch(fetchEdtechData());
     }
   }, [status, dispatch]);
+
+  // Pick 6 random gallery photos once per mount so the section feels fresh
+  // every visit, but stays stable while the user is on the page.
+  const galleryImages = useMemo(
+    () =>
+      pickRandom(GALLERY_POOL, 6).map((src, idx) => ({
+        id: idx + 1,
+        src,
+        label: GALLERY_LABELS[idx % GALLERY_LABELS.length],
+      })),
+    []
+  );
+
+  // Lightbox state — open a dialog with the clicked image enlarged.
+  const [lightbox, setLightbox] = useState(null); // null when closed, image object when open
+  const handleOpenLightbox = (img) => setLightbox(img);
+  const handleCloseLightbox = () => setLightbox(null);
 
   // Page always renders regardless of status (no failed-state blocking)
 
@@ -265,6 +297,7 @@ const EdtechPage = () => {
             {galleryImages.map((img) => (
               <Box
                 key={img.id}
+                onClick={() => handleOpenLightbox(img)}
                 sx={{
                   position: 'relative',
                   borderRadius: 3,
@@ -277,8 +310,10 @@ const EdtechPage = () => {
               >
                 <Box
                   component="img"
-                  src={`https://picsum.photos/seed/${img.seed}/800/500`}
+                  src={img.src}
                   alt={img.label}
+                  loading="lazy"
+                  decoding="async"
                   sx={{
                     width: '100%',
                     height: '100%',
@@ -307,6 +342,75 @@ const EdtechPage = () => {
             ))}
           </Box>
         </Container>
+
+        {/* Lightbox dialog — shows the clicked image enlarged */}
+        <Dialog
+          open={Boolean(lightbox)}
+          onClose={handleCloseLightbox}
+          maxWidth="lg"
+          PaperProps={{
+            sx: {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              overflow: 'visible',
+              m: { xs: 2, md: 4 },
+            },
+          }}
+          slotProps={{
+            backdrop: { sx: { backgroundColor: 'rgba(0,0,0,0.85)' } },
+          }}
+        >
+          <Box sx={{ position: 'relative' }}>
+            <IconButton
+              onClick={handleCloseLightbox}
+              aria-label="Close"
+              sx={{
+                position: 'absolute',
+                top: -16,
+                right: -16,
+                backgroundColor: '#fff',
+                color: '#0F172A',
+                width: 40,
+                height: 40,
+                boxShadow: '0 8px 20px rgba(0,0,0,0.3)',
+                zIndex: 2,
+                '&:hover': { backgroundColor: '#F1F5F9' },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            {lightbox && (
+              <>
+                <Box
+                  component="img"
+                  src={lightbox.src}
+                  alt={lightbox.label}
+                  sx={{
+                    display: 'block',
+                    width: '100%',
+                    maxWidth: '90vw',
+                    maxHeight: '85vh',
+                    objectFit: 'contain',
+                    borderRadius: 2,
+                    backgroundColor: '#0F172A',
+                  }}
+                />
+                <Typography
+                  sx={{
+                    color: '#fff',
+                    textAlign: 'center',
+                    mt: 2,
+                    fontSize: '15px',
+                    fontWeight: 600,
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  {lightbox.label}
+                </Typography>
+              </>
+            )}
+          </Box>
+        </Dialog>
       </Box>
 
       {/* ── Shop Section ── */}

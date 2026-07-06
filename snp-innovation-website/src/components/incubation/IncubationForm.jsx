@@ -107,7 +107,7 @@ const IncubationForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission — sends data to dhokeayush0@gmail.com via Web3Forms
+  // Handle form submission — sends data to nikhilgujar902@gmail.com via Web3Forms
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) {

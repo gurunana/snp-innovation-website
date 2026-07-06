@@ -25,8 +25,8 @@ const HERO_IMAGES = [
 // Floating stat badges shown on top of hero image
 const HERO_STATS = [
   { value: '500+', label: 'IT Professionals', color: '#1A3A8F' },
-  { value: '150+', label: 'Labs Installed', color: '#15803D' },
-  { value: '30+', label: 'Startups Supported', color: '#C2410C' },
+  { value: '250+', label: 'Labs Installed', color: '#15803D' },
+  { value: '11+', label: 'Startups Supported', color: '#C2410C' },
 ];
 
 // Vertical tags shown below headline
@@ -68,17 +68,37 @@ const HeroSection = ({ heroData }) => {
         position: 'relative',
         width: '100%',
         minHeight: { xs: '65vh', md: '85vh' },
-        backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.78) 0%, rgba(15,37,96,0.72) 55%, rgba(26,58,143,0.70) 100%), url('/images/gallery/homePageImages/HomePageHeader.png')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        /* Dark gradient shows instantly while image loads — no white flash */
+        background: `linear-gradient(135deg, #060F1E 0%, #0D2455 45%, #1B3D8A 100%)`,
         color: 'white',
         display: 'flex',
         alignItems: 'center',
-        overflow: 'hidden',
+        /* Do NOT set overflow: hidden here — it clips the floating stat badges.
+           The decorative background layer has its own overflow: hidden. */
       }}
     >
-      {/* ── Background decorative circles ── */}
+      {/* Hero background image — loaded separately so gradient shows first */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url('/images/gallery/homePageImages/HomePageHeader.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          zIndex: 0,
+        }}
+      />
+      {/* Dark overlay over the background image */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(15,37,96,0.76) 55%, rgba(26,58,143,0.72) 100%)',
+          zIndex: 0,
+        }}
+      />
+      {/* ── Background decorative circles — contained in their own overflow: hidden layer ── */}
       <Box sx={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
         {/* Top-right glow */}
         <Box
@@ -150,18 +170,19 @@ const HeroSection = ({ heroData }) => {
 
       {/* ── Main content ── */}
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 2, py: { xs: 4, md: 5 } }}>
-        {/* Flexbox row — left 58% text, right 42% image. Stacks on mobile. */}
+        {/* Flexbox row — left takes remaining space, right fixed 42%. Stacks on mobile.
+             Gap is 40px (md:5) not 64px — leaves room for the right floating badges */}
         <Box
           sx={{
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             alignItems: 'center',
-            gap: { xs: 4, md: 8 },
+            gap: { xs: 4, md: 5 },
             minHeight: { md: '82vh' },
           }}
         >
-          {/* ── LEFT: Text + CTAs ── */}
-          <Box sx={{ flex: { md: '0 0 58%' }, maxWidth: { md: '58%' }, width: '100%' }}>
+          {/* ── LEFT: Text + CTAs — flex: 1 so it fills remaining space ── */}
+          <Box sx={{ flex: 1, minWidth: 0, width: '100%' }}>
             <Box
               sx={{
                 opacity: isLoaded ? 1 : 0,
@@ -357,12 +378,14 @@ const HeroSection = ({ heroData }) => {
             </Box>
           </Box>
 
-          {/* ── RIGHT: Hero image with floating stat badges ── */}
+          {/* ── RIGHT: Hero image with floating stat badges ──
+               Fixed 42% width, with padding so -28px badges don't clip viewport edge */}
           <Box
             sx={{
-              flex: { md: '0 0 42%' },
-              maxWidth: { md: '42%' },
-              width: '100%',
+              flex: '0 0 auto',
+              width: { xs: '100%', md: '42%' },
+              maxWidth: { md: '520px' },
+              paddingRight: { md: '32px' },  /* room for right-side floating badge */
               opacity: isLoaded ? 1 : 0,
               transform: isLoaded ? 'translateX(0)' : 'translateX(40px)',
               transition: 'all 0.9s ease 0.2s',
@@ -378,6 +401,8 @@ const HeroSection = ({ heroData }) => {
                   position: 'relative',
                   boxShadow: '0 40px 80px rgba(0,0,0,0.5)',
                   border: '1px solid rgba(255,255,255,0.12)',
+                  /* Dark placeholder so no white flash while images load */
+                  backgroundColor: '#0D1B3E',
                 }}
               >
                 {HERO_IMAGES.map((src, idx) => (
@@ -386,6 +411,9 @@ const HeroSection = ({ heroData }) => {
                     component="img"
                     src={src}
                     alt={`SNP Innovation Lab ${idx + 1}`}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchpriority={idx === 0 ? 'high' : 'low'}
                     sx={{
                       position: 'absolute',
                       inset: 0,

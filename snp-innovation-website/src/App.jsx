@@ -1,6 +1,5 @@
 /* ========================================
    APP.JSX - Main Application Entry Point
-   Wraps the app with Redux Provider, MUI Theme, and Router
    ======================================== */
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
@@ -9,13 +8,10 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import muiTheme from './theme/muiTheme';
 
-// Layout Components
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
-import Toolbar from '@mui/material/Toolbar';
 
-// Page Components
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import EdtechPage from './pages/EdtechPage';
@@ -27,6 +23,8 @@ import GalleryPage from './pages/GalleryPage';
 import CareersPage from './pages/CareersPage';
 import EnquiryPage from './pages/EnquiryPage';
 import ContactPage from './pages/ContactPage';
+import ShopPage from './pages/ShopPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -35,15 +33,8 @@ function App() {
         <CssBaseline />
         <Router>
           <ScrollToTop />
-          {/* Fixed navbar — floats over the hero section */}
           <Navbar />
-          {/*
-            Spacer: exactly matches the fixed AppBar height (logo 52px +
-            toolbar vertical padding 10px×2 = 72px) so no content is hidden.
-            MUI's plain <Toolbar /> defaults to 56/64px — too short for our logo.
-          */}
           <div style={{ height: '72px', flexShrink: 0 }} />
-          {/* overflow-x hidden prevents any component from causing horizontal scroll */}
           <main style={{ overflowX: 'hidden', width: '100%' }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -57,6 +48,8 @@ function App() {
               <Route path="/careers" element={<CareersPage />} />
               <Route path="/enquiry" element={<EnquiryPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/admin" element={<AdminPage />} />
             </Routes>
           </main>
           <Footer />

@@ -71,7 +71,7 @@ const CandidateRegistration = ({ embedded = false }) => {
     return Object.keys(e).length === 0;
   };
 
-  // Handle form submission — sends candidate profile to dhokeayush0@gmail.com via Web3Forms
+  // Handle form submission — sends candidate profile to nikhilgujar902@gmail.com via Web3Forms
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;

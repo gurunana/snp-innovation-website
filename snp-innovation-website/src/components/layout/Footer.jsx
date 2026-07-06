@@ -89,7 +89,7 @@ const Footer = () => {
     },
   ];
 
-  // Handle newsletter subscription — sends email to dhokeayush0@gmail.com via Web3Forms
+  // Handle newsletter subscription — sends email to nikhilgujar902@gmail.com via Web3Forms
   const handleSubscribe = async (e) => {
     e.preventDefault();
 
@@ -126,30 +126,19 @@ const Footer = () => {
             {/* Company Info Section */}
             <Grid item xs={12} sm={6} md={3}>
               <Box className="footer-section">
-                {/* Logo in white rounded card — SNP mark only (no wordmark), enlarged */}
+                {/* Full SNP Innovation logo with transparent background */}
                 <Box
+                  component="img"
+                  src="/images/logo.png"
+                  alt="SNP Innovation"
                   sx={{
-                    backgroundColor: '#ffffff',
-                    borderRadius: '14px',
-                    px: 2.5,
-                    py: 1.5,
-                    display: 'inline-flex',
-                    alignItems: 'center',
+                    width: { xs: '180px', md: '210px' },
+                    height: 'auto',
+                    display: 'block',
                     mb: 2.5,
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.20)',
+                    filter: 'brightness(1) drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
                   }}
-                >
-                  <Box
-                    component="img"
-                    src="/images/logo-icon.png"
-                    alt="SNP"
-                    sx={{
-                      height: { xs: '80px', md: '96px' },
-                      width: 'auto',
-                      display: 'block',
-                    }}
-                  />
-                </Box>
+                />
                 <Typography className="footer-tagline">
                   Innovation Infrastructure for Education · Industry · Research
                   · Startups
@@ -224,30 +213,40 @@ const Footer = () => {
             </Grid>
 
             {/* Contact Section */}
-            <Grid item xs={12} sm={6} md={2}>
+            <Grid item xs={12} sm={6} md={3}>
               <Box className="footer-section">
                 <Typography variant="subtitle2" className="footer-section-title">
                   Contact
                 </Typography>
                 <Box className="footer-contact-item">
                   <PhoneIcon className="contact-icon" />
-                  <span>+91 (0) XXXX-XXXX-XX</span>
+                  <a href="tel:+918329397933">+91 8329-397933</a>
                 </Box>
                 <Box className="footer-contact-item">
                   <EmailIcon className="contact-icon" />
-                  <a href="mailto:info@snpinnovation.com">
-                    info@snpinnovation.com
+                  <a href="mailto:Info@snpinnovation.in">
+                    Info@snpinnovation.in
                   </a>
                 </Box>
                 <Box className="footer-contact-item">
+                  <EmailIcon className="contact-icon" />
+                  <a href="mailto:contact@snpinnovation.in">
+                    contact@snpinnovation.in
+                  </a>
+                </Box>
+                <Box className="footer-contact-item" sx={{ alignItems: 'flex-start' }}>
                   <LocationOnIcon className="contact-icon" />
-                  <span>Bangalore, India</span>
+                  <span>
+                    C/O Incube Coworking Space, Tejaswini Housing Society,
+                    next to Midpoint Hospital, Aundh-Baner DP Rd, Baner,
+                    Maharashtra, India - 411045
+                  </span>
                 </Box>
               </Box>
             </Grid>
 
             {/* Newsletter Section */}
-            <Grid item xs={12} sm={12} md={3}>
+            <Grid item xs={12} sm={12} md={2}>
               <Box className="footer-section">
                 <Typography variant="subtitle2" className="footer-section-title">
                   Newsletter

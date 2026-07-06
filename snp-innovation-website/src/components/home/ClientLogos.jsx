@@ -1,76 +1,46 @@
 /* ========================================
    CLIENT & PARTNER LOGOS — Home Page Section 1.6
-   PDF: "Scrolling/Auto-carousel logo strip"
-   PDF Note: "Organize into: Educational Institutions | Corporate Clients |
-   Government Partners | International Collaborations"
+   Continuous scrolling carousel of real client/partner logos
    ======================================== */
 
-import { Box, Container, Typography, Tabs, Tab } from '@mui/material';
-import { useState } from 'react';
-import SchoolIcon from '@mui/icons-material/School';
-import BusinessIcon from '@mui/icons-material/Business';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import PublicIcon from '@mui/icons-material/Public';
+import { Box, Container, Typography } from '@mui/material';
 
-// 4 categories as PDF specifies
-const CATEGORIES = [
-  { label: 'Educational Institutions', icon: SchoolIcon, color: '#1A3A8F' },
-  { label: 'Corporate Clients', icon: BusinessIcon, color: '#15803D' },
-  { label: 'Government Partners', icon: AccountBalanceIcon, color: '#C2410C' },
-  { label: 'International Collaborations', icon: PublicIcon, color: '#7E22CE' },
+// Real client / associate logos located in /public/images/gallery/client n associate logos/
+// Path uses URL-encoded spaces so the browser can fetch correctly.
+const LOGO_DIR = '/images/gallery/client%20n%20associate%20logos';
+
+const LOGOS = [
+  { src: `${LOGO_DIR}/17501801224914744.jpeg`,           alt: 'Client Logo 1' },
+  { src: `${LOGO_DIR}/Successive_Technologies_Logo.jpg`, alt: 'Successive Technologies' },
+  { src: `${LOGO_DIR}/download%20(2).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(3).jpg`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(3).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(4).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(5).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(6).jpg`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(6).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(7).jpg`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(7).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(8).jpg`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(8).png`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(9).jpg`,               alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(10).jpg`,              alt: 'Partner' },
+  { src: `${LOGO_DIR}/download%20(11).jpg`,              alt: 'Partner' },
 ];
 
-// Placeholder logos for each category (replace with real logos)
-const LOGOS = {
-  0: [
-    { id: 1, name: 'DPS Schools', initials: 'DPS' },
-    { id: 2, name: 'IIT Bombay', initials: 'IIT' },
-    { id: 3, name: 'Symbiosis', initials: 'SYM' },
-    { id: 4, name: 'VNIT', initials: 'VNIT' },
-    { id: 5, name: 'MIT College', initials: 'MIT' },
-    { id: 6, name: 'COEP', initials: 'COEP' },
-  ],
-  1: [
-    { id: 1, name: 'TCS', initials: 'TCS' },
-    { id: 2, name: 'Infosys', initials: 'INFY' },
-    { id: 3, name: 'Wipro', initials: 'WIP' },
-    { id: 4, name: 'Tech Mahindra', initials: 'TM' },
-    { id: 5, name: 'L&T', initials: 'L&T' },
-    { id: 6, name: 'TATA', initials: 'TATA' },
-  ],
-  2: [
-    { id: 1, name: 'MeitY', initials: 'MEI' },
-    { id: 2, name: 'NITI Aayog', initials: 'NITI' },
-    { id: 3, name: 'DST', initials: 'DST' },
-    { id: 4, name: 'MSME Ministry', initials: 'MSME' },
-    { id: 5, name: 'Startup India', initials: 'SI' },
-    { id: 6, name: 'AIM', initials: 'AIM' },
-  ],
-  3: [
-    { id: 1, name: 'Singapore Partner', initials: 'SG' },
-    { id: 2, name: 'UAE Collab', initials: 'UAE' },
-    { id: 3, name: 'US Partner', initials: 'US' },
-    { id: 4, name: 'EU Research', initials: 'EU' },
-    { id: 5, name: 'UK Institute', initials: 'UK' },
-    { id: 6, name: 'Global NGO', initials: 'NGO' },
-  ],
-};
-
 const ClientLogos = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  // Duplicate the array so the marquee can scroll seamlessly
+  const scrollingLogos = [...LOGOS, ...LOGOS];
 
-  // Get logos for active tab, duplicate for infinite scroll
-  const currentLogos = LOGOS[activeTab] || [];
-  const scrollingLogos = [...currentLogos, ...currentLogos, ...currentLogos];
-
-  const activeCategory = CATEGORIES[activeTab];
+  // Each logo card is 200px wide + 24px gap = 224px. Translate by full set width.
+  const trackWidth = LOGOS.length * 224;
 
   return (
     <Box sx={{ width: '100%', paddingY: { xs: 4, md: 6 }, backgroundColor: '#FFFFFF' }}>
       <Container maxWidth="xl">
 
         {/* Section Header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 } }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 3, md: 5 } }}>
           <Typography
             variant="overline"
             sx={{ color: '#CC2020', fontWeight: 700, letterSpacing: '2px', fontSize: '12px', display: 'block', mb: 1 }}
@@ -86,57 +56,7 @@ const ClientLogos = () => {
           <Box sx={{ width: 60, height: 4, background: 'linear-gradient(90deg,#1A3A8F,#CC2020)', borderRadius: 2, mx: 'auto' }} />
         </Box>
 
-        {/* 4-Tab filter — exact categories from PDF */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 1.5,
-              justifyContent: 'center',
-              background: '#F8FAFC',
-              p: 1,
-              borderRadius: '16px',
-              border: '1px solid #E2E8F0',
-            }}
-          >
-            {CATEGORIES.map((cat, index) => {
-              const IconComp = cat.icon;
-              const isActive = activeTab === index;
-              return (
-                <Box
-                  key={index}
-                  onClick={() => setActiveTab(index)}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    px: 2.5,
-                    py: 1.2,
-                    borderRadius: '10px',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    fontWeight: isActive ? 700 : 500,
-                    color: isActive ? 'white' : '#64748B',
-                    background: isActive ? `linear-gradient(135deg, ${cat.color}, ${cat.color}dd)` : 'transparent',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      background: isActive
-                        ? `linear-gradient(135deg, ${cat.color}, ${cat.color}dd)`
-                        : '#E2E8F0',
-                      color: isActive ? 'white' : '#0F172A',
-                    },
-                  }}
-                >
-                  <IconComp sx={{ fontSize: 18 }} />
-                  {cat.label}
-                </Box>
-              );
-            })}
-          </Box>
-        </Box>
-
-        {/* Scrolling Logo Strip */}
+        {/* Continuous scrolling logo strip */}
         <Box
           sx={{
             position: 'relative',
@@ -161,11 +81,12 @@ const ClientLogos = () => {
             sx={{
               display: 'flex',
               gap: 3,
-              animation: 'logoScroll 30s linear infinite',
+              width: 'max-content',
+              animation: `logoScroll ${LOGOS.length * 3}s linear infinite`,
               '&:hover': { animationPlayState: 'paused' },
               '@keyframes logoScroll': {
-                '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(calc(-200px * 6))' },
+                '0%':   { transform: 'translateX(0)' },
+                '100%': { transform: `translateX(-${trackWidth}px)` },
               },
             }}
           >
@@ -174,37 +95,41 @@ const ClientLogos = () => {
                 key={i}
                 sx={{
                   flexShrink: 0,
-                  width: '170px',
-                  height: '80px',
+                  width: '200px',
+                  height: '110px',
                   display: 'flex',
-                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
                   background: 'white',
                   borderRadius: '12px',
                   border: '1px solid #E2E8F0',
+                  padding: '16px',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
+                  filter: 'grayscale(40%)',
+                  opacity: 0.85,
                   '&:hover': {
-                    borderColor: activeCategory.color,
-                    boxShadow: `0 8px 20px ${activeCategory.color}22`,
+                    borderColor: '#1A3A8F',
+                    boxShadow: '0 8px 20px rgba(26,58,143,0.15)',
                     transform: 'scale(1.05)',
+                    filter: 'grayscale(0%)',
+                    opacity: 1,
                   },
                 }}
               >
-                <Typography
+                <Box
+                  component="img"
+                  src={logo.src}
+                  alt={logo.alt}
+                  loading="lazy"
+                  decoding="async"
                   sx={{
-                    fontWeight: 800,
-                    fontSize: '18px',
-                    color: activeCategory.color,
-                    letterSpacing: '1px',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    display: 'block',
                   }}
-                >
-                  {logo.initials}
-                </Typography>
-                <Typography sx={{ fontSize: '11px', color: '#94A3B8', fontWeight: 500, mt: 0.5 }}>
-                  {logo.name}
-                </Typography>
+                />
               </Box>
             ))}
           </Box>

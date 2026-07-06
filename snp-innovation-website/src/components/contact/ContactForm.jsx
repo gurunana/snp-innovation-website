@@ -53,7 +53,7 @@ const ContactForm = ({ onSubmit }) => {
     },
   ];
 
-  // Handle form submission — sends data to dhokeayush0@gmail.com via Web3Forms
+  // Handle form submission — sends data to nikhilgujar902@gmail.com via Web3Forms
   const handleFormSubmit = async (formData) => {
     await submitForm('Contact Form', formData);
     if (onSubmit) onSubmit(formData);

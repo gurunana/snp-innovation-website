@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import { fetchAboutData } from '../store/slices/aboutSlice';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 
 import OurStory from '../components/about/OurStory';
 import VisionMission from '../components/about/VisionMission';
@@ -26,19 +25,14 @@ const AboutPage = () => {
     (state) => state.about
   );
 
-  // Try fetching live data — falls back to initialState if backend is offline
+  // Try fetching live data in the background — page renders immediately
+  // with hardcoded initialState data; no blocking spinner.
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchAboutData());
     }
   }, [dispatch, status]);
 
-  // Brief spinner while the first request is in flight
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-
-  // 'failed' falls through — renders with hardcoded initialState data (no error screen)
   return (
     <Box component="main">
       {/* 2.1 — Page Banner */}

@@ -6,14 +6,17 @@
    ======================================== */
 
 import { Box, Typography, Container } from '@mui/material';
-import { Grid } from '@mui/material';
 import SectionHeader from '../common/SectionHeader';
+
+// Real images located in /public/images/gallery/learning methodology images/
+// URL-encoded spaces so the browser can fetch correctly.
+const IMG_DIR = '/images/gallery/learning%20methodology%20images';
 
 // All data defined outside return — no logic in JSX
 const methodologies = [
   {
     id: 1,
-    emoji: '🔨',
+    image: `${IMG_DIR}/1.png`,
     title: 'Project-Based Learning',
     description:
       'Students tackle multi-week real-world projects — from designing a smart irrigation system to building an autonomous robot. Learning happens by doing.',
@@ -23,7 +26,7 @@ const methodologies = [
   },
   {
     id: 2,
-    emoji: '🧩',
+    image: `${IMG_DIR}/2.png`,
     title: 'Problem-Based Learning',
     description:
       'Complex, authentic problems drive the curriculum. Students research, experiment, and iterate to find solutions — developing critical thinking along the way.',
@@ -33,7 +36,7 @@ const methodologies = [
   },
   {
     id: 3,
-    emoji: '✏️',
+    image: `${IMG_DIR}/3.png`,
     title: 'Design Thinking',
     description:
       'Empathise → Define → Ideate → Prototype → Test. Students use the full design thinking cycle to build human-centred solutions to community problems.',
@@ -43,7 +46,7 @@ const methodologies = [
   },
   {
     id: 4,
-    emoji: '🌐',
+    image: `${IMG_DIR}/4.png`,
     title: 'Transdisciplinary Learning',
     description:
       'STEM skills meet art, humanities, and social science. Students connect electronics to healthcare, coding to music, and IoT to environmental science.',
@@ -53,7 +56,7 @@ const methodologies = [
   },
   {
     id: 5,
-    emoji: '🛠️',
+    image: `${IMG_DIR}/5.png`,
     title: 'Maker Culture',
     description:
       'Every student is a maker. Labs are equipped with tools, kits, and an open maker space spirit that celebrates tinkering, iteration, and fearless creativity.',
@@ -63,7 +66,7 @@ const methodologies = [
   },
   {
     id: 6,
-    emoji: '🤝',
+    image: `${IMG_DIR}/6.png`,
     title: 'Collaborative Innovation',
     description:
       'Team-based challenges, inter-school hackathons, and peer mentoring foster communication, leadership, and the spirit of innovation working together.',
@@ -82,7 +85,7 @@ const LearningMethodology = () => {
           subtitle="Six powerful pedagogical approaches that transform passive learners into active innovators"
         />
 
-        {/* Methodology image banner */}
+        {/* Methodology image banner — uses local header.png */}
         <Box
           sx={{
             borderRadius: 3,
@@ -95,8 +98,10 @@ const LearningMethodology = () => {
         >
           <Box
             component="img"
-            src="https://picsum.photos/seed/methodology-banner/1200/400"
+            src={`${IMG_DIR}/header.png`}
             alt="Learning Methodology"
+            loading="lazy"
+            decoding="async"
             sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.4)' }}
           />
           <Box
@@ -129,37 +134,89 @@ const LearningMethodology = () => {
           </Box>
         </Box>
 
-        {/* 6 methodology cards */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" }, gap: 2 }}>
+        {/* 6 methodology cards — each with its own illustration */}
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 2.5 }}>
           {methodologies.map((method, idx) => (
-                          <Box
-                key={method.id}
+            <Box
+              key={method.id}
+              sx={{
+                position: 'relative',
+                borderRadius: 3,
+                backgroundColor: method.bg,
+                border: `1px solid ${method.color}22`,
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'hidden',
+                transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                '&:hover': {
+                  transform: 'translateY(-6px)',
+                  boxShadow: `0 16px 40px ${method.color}30`,
+                  borderColor: method.color,
+                },
+                '&:hover .method-num': {
+                  opacity: 0.15,
+                },
+              }}
+            >
+              {/* Top illustration */}
+              <Box
                 sx={{
                   position: 'relative',
-                  p: 2.5,
-                  borderRadius: 3,
-                  backgroundColor: method.bg,
-                  border: `1px solid ${method.color}22`,
-                  height: '100%',
-                  transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                  width: '100%',
+                  height: 170,
+                  background: `linear-gradient(160deg, ${method.color}10, ${method.color}05)`,
+                  borderBottom: `1px solid ${method.color}1F`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   overflow: 'hidden',
-                  '&:hover': {
-                    transform: 'translateY(-6px)',
-                    boxShadow: `0 16px 40px ${method.color}30`,
-                    borderColor: method.color,
-                  },
-                  '&:hover .method-num': {
-                    opacity: 0.15,
-                  },
                 }}
               >
-                {/* Large background number */}
+                <Box
+                  component="img"
+                  src={method.image}
+                  alt={method.title}
+                  loading="lazy"
+                  decoding="async"
+                  sx={{
+                    maxWidth: '92%',
+                    maxHeight: '92%',
+                    objectFit: 'contain',
+                    display: 'block',
+                  }}
+                />
+
+                {/* Numbered badge over the illustration */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 12,
+                    right: 12,
+                    width: 30,
+                    height: 30,
+                    borderRadius: '50%',
+                    background: method.gradient,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: `0 4px 12px ${method.color}55`,
+                  }}
+                >
+                  <Typography sx={{ color: '#fff', fontSize: '13px', fontWeight: 700 }}>
+                    {idx + 1}
+                  </Typography>
+                </Box>
+              </Box>
+
+              {/* Card body */}
+              <Box sx={{ position: 'relative', p: 2.5, flex: 1 }}>
+                {/* Large faint background number */}
                 <Typography
                   className="method-num"
                   sx={{
                     position: 'absolute',
-                    top: -10,
-                    right: 10,
+                    top: -20,
+                    right: 8,
                     fontSize: '100px',
                     fontWeight: 900,
                     color: method.color,
@@ -173,57 +230,20 @@ const LearningMethodology = () => {
                   {idx + 1}
                 </Typography>
 
-                {/* Emoji icon */}
-                <Box
-                  sx={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 2,
-                    background: method.gradient,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '22px',
-                    mb: 1.5,
-                    boxShadow: `0 6px 16px ${method.color}35`,
-                  }}
-                >
-                  {method.emoji}
-                </Box>
-
-                {/* Step badge */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 16,
-                    right: 16,
-                    width: 28,
-                    height: 28,
-                    borderRadius: '50%',
-                    background: method.gradient,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography sx={{ color: '#fff', fontSize: '12px', fontWeight: 700 }}>
-                    {idx + 1}
-                  </Typography>
-                </Box>
-
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: 700, color: '#1F2937', fontSize: '14px', mb: 1 }}
+                  sx={{ fontWeight: 700, color: '#1F2937', fontSize: '15px', mb: 1, position: 'relative' }}
                 >
                   {method.title}
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: '#6B7280', fontSize: '13.5px', lineHeight: 1.7 }}
+                  sx={{ color: '#6B7280', fontSize: '13.5px', lineHeight: 1.7, position: 'relative' }}
                 >
                   {method.description}
                 </Typography>
               </Box>
+            </Box>
           ))}
         </Box>
       </Container>

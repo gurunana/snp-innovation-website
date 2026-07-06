@@ -335,7 +335,7 @@ const EnquiryPage = () => {
             {[
               { icon: '⏱️', title: '24-Hour Response', desc: 'Our team responds to all enquiries within one business day.' },
               { icon: '🔒', title: 'Confidential', desc: 'Your enquiry details are kept strictly confidential.' },
-              { icon: '📞', title: 'Direct Connect', desc: 'Prefer a call? Reach us at info@snpinnovation.com' },
+              { icon: '📞', title: 'Direct Connect', desc: 'Prefer a call? Reach us at +91 8329-397933 or Info@snpinnovation.in' },
             ].map((item, i) => (
               <Grid item xs={12} sm={4} key={i}>
                 <Box

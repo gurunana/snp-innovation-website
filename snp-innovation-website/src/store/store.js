@@ -14,6 +14,7 @@ import gallerySlice from './slices/gallerySlice';
 import careersSlice from './slices/careersSlice';
 import enquirySlice from './slices/enquirySlice';
 import contactSlice from './slices/contactSlice';
+import shopSlice from './slices/shopSlice';
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     careers: careersSlice,
     enquiry: enquirySlice,
     contact: contactSlice,
+    shop: shopSlice,
   },
 });
 

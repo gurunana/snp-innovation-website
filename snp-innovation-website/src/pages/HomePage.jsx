@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import { fetchHomeData } from '../store/slices/homeSlice';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 
 // Home Section Components — one per PDF section
 import HeroSection from '../components/home/HeroSection';
@@ -36,22 +35,16 @@ const HomePage = () => {
   );
 
   // Try fetching live data once on mount (only when status is 'idle')
-  // If the backend is not running, the request fails silently and we
-  // continue rendering with the hardcoded initialState data.
+  // The fetch happens in the background — the page renders immediately
+  // with the hardcoded initialState data and updates if/when the API responds.
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchHomeData());
     }
   }, [dispatch, status]);
 
-  // Show spinner only while the first request is in flight
-  // 'failed' falls through and renders with initialState data — no error screen
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
-
-  // Render the full home page — uses live API data when available,
-  // falls back to hardcoded initialState data when backend is offline
+  // Always render immediately — no blocking spinner. Redux initialState
+  // gives us valid content even when the backend is offline.
   return (
     <Box component="main">
       {/* 1.1 — Hero Section */}

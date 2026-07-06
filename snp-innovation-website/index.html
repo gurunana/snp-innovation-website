@@ -4,10 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>snp-innovation-website</title>
+    <meta name="theme-color" content="#0D2455" />
+    <meta name="description" content="SNP Innovation — India's Innovation Infrastructure Company. EdTech STEM Labs, IT Resourcing, R&D & Automation, Incubation Centre." />
+
+    <title>SNP Innovation — India's Innovation Infrastructure Company</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Preload above-the-fold hero images for faster first paint -->
+    <link rel="preload" as="image" href="/images/gallery/homePageImages/HomePageHeader.png" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/gallery/homePageImages/HomePageBanner1.png" fetchpriority="high">
+
+    <!-- Inline critical background colour so the hero area isn't white before CSS loads -->
+    <style>
+      body { background-color: #060F1E; }
+      #root { min-height: 100vh; }
+    </style>
   </head>
   <body>
     <div id="root"></div>

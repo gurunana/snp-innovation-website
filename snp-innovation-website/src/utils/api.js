@@ -1,45 +1,37 @@
 /* ========================================
    API UTILITY
-   Two layers:
-   1. Web3Forms — free pre-built email API (active now for testing)
-      → Form data goes to dhokeayush0@gmail.com
-      → No server needed, completely free
-      → Replace ACCESS_KEY with key from web3forms.com
-   2. Axios instance for Spring Boot (future production backend)
+   1. Web3Forms - free email API (sends to nikhilgujar902@gmail.com)
+   2. Supabase  - saves every form submission to DB for reports
+   3. Axios     - Spring Boot backend (future use)
    ======================================== */
 
 import axios from 'axios';
+import { saveFormSubmission } from '../lib/supabase';
 
-// ─────────────────────────────────────────────────────────────
-// WEB3FORMS CONFIG
-// Step 1: Go to https://web3forms.com
-// Step 2: Enter dhokeayush0@gmail.com → click "Create Access Key"
-// Step 3: Check your email and copy the key here
-// ─────────────────────────────────────────────────────────────
-const WEB3FORMS_ACCESS_KEY = '2c45df89-7659-443e-b4fb-5d6ecd2d40eb';
-
-// Web3Forms endpoint — this is a public pre-built API, no server needed
+const WEB3FORMS_ACCESS_KEY = 'f783b04f-828e-4e54-adfe-264b4020a68e';
 const WEB3FORMS_URL = 'https://api.web3forms.com/submit';
 
 /**
- * submitForm — sends any form data to dhokeayush0@gmail.com via Web3Forms
- *
- * @param {string} formName  - Label shown in the email subject line
- *                             e.g. "Contact Form", "STEM Lab Enquiry", "Career Registration"
- * @param {object} formData  - Key-value pairs from the form
- * @returns {Promise<{success: boolean, message: string}>}
- *
- * Usage in any component:
- *   import { submitForm } from '../../utils/api';
- *   const result = await submitForm('Contact Form', { name, email, message });
+ * submitForm - sends form data via email AND saves to Supabase DB
+ * @param {string} formName - e.g. "Contact Form", "STEM Lab Enquiry"
+ * @param {object} formData - key-value pairs from the form
  */
 export const submitForm = async (formName, formData) => {
-  // Build the payload Web3Forms expects
+  // 1. Save to Supabase (silent - never blocks form submission)
+  saveFormSubmission(
+    formName,
+    formData,
+    formData.email || formData.Email || '',
+    formData.fullName || formData.name || formData.contactPerson || '',
+    formData.phone || formData.Phone || '',
+  ).catch(() => {});
+
+  // 2. Send email via Web3Forms
   const payload = {
-    access_key: WEB3FORMS_ACCESS_KEY,       // your free API key
-    subject: `New ${formName} — SNP Innovation Website`,  // email subject
-    from_name: 'SNP Innovation Website',    // sender name in email
-    ...formData,                            // all form fields spread in
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `New ${formName} - SNP Innovation Website`,
+    from_name: 'SNP Innovation Website',
+    ...formData,
   };
 
   const response = await fetch(WEB3FORMS_URL, {
@@ -57,10 +49,7 @@ export const submitForm = async (formName, formData) => {
   return { success: true, message: result.message };
 };
 
-// ─────────────────────────────────────────────────────────────
-// AXIOS INSTANCE — for future Spring Boot backend
-// Change API_BASE_URL when your backend is deployed
-// ─────────────────────────────────────────────────────────────
+// Axios instance for Spring Boot backend (future use)
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
@@ -69,13 +58,11 @@ const api = axios.create({
   timeout: 10000,
 });
 
-// Request interceptor — add auth token here in the future if needed
 api.interceptors.request.use(
   (config) => config,
   (error) => Promise.reject(error)
 );
 
-// Response interceptor — global error logging
 api.interceptors.response.use(
   (response) => response,
   (error) => {

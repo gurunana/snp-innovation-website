@@ -1,7 +1,6 @@
 /* ========================================
-   STEM ENQUIRY FORM - Lab enquiry form
-   All fields from PDF Section 3.12
-   Standalone form (no dependency on EnquiryForm common)
+   STEM ENQUIRY FORM — Inline form (no dialog)
+   The Call Us / Email Us / Visit Us strip has been removed.
    ======================================== */
 
 import { useState } from 'react';
@@ -15,7 +14,6 @@ import {
   CircularProgress,
   InputAdornment,
 } from '@mui/material';
-// Grid import removed — using CSS Grid via Box instead
 import SectionHeader from '../common/SectionHeader';
 import PrimaryButton from '../common/PrimaryButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +32,6 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import NotesIcon from '@mui/icons-material/Notes';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
-// Initial form state — defined outside component, no logic in JSX
 const initialForm = {
   institutionName: '',
   contactPerson: '',
@@ -112,7 +109,7 @@ const StemEnquiryForm = () => {
         }, 4000);
       })
       .catch(() => {
-        // Error handled via Redux state — form stays rendered
+        // Error shown via Redux state — form stays rendered
       });
   };
 
@@ -141,7 +138,6 @@ const StemEnquiryForm = () => {
             border: '1px solid #DBEAFE',
           }}
         >
-          {/* Success alert */}
           {localSuccess && (
             <Alert
               severity="success"
@@ -152,7 +148,6 @@ const StemEnquiryForm = () => {
             </Alert>
           )}
 
-          {/* Error alert — never blocks form render */}
           {submissionStatus === 'failed' && submissionError && (
             <Alert severity="error" sx={{ mb: 4, borderRadius: 2 }}>
               {typeof submissionError === 'string'
@@ -161,9 +156,6 @@ const StemEnquiryForm = () => {
             </Alert>
           )}
 
-          {/* CSS Grid form — 2 equal columns on sm+, 1 column on xs.
-              No MUI Grid — avoids v9 column-prop issues.
-              Full-width fields use gridColumn: '1 / -1'             */}
           <Box component="form" onSubmit={handleSubmit} noValidate>
             <Box
               sx={{
@@ -172,28 +164,19 @@ const StemEnquiryForm = () => {
                 gap: 3,
               }}
             >
-              {/* Institution Name — full width */}
               <Box sx={{ gridColumn: '1 / -1' }}>
                 <TextField
-                  fullWidth
-                  required
+                  fullWidth required
                   label="Institution Name"
                   name="institutionName"
                   value={formData.institutionName}
                   onChange={handleChange}
                   placeholder="e.g. Delhi Public School, RK Puram"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <BusinessIcon sx={{ color: '#2D5BE3', fontSize: 20 }} />
-                      </InputAdornment>
-                    ),
-                  }}
+                  InputProps={{ startAdornment: <InputAdornment position="start"><BusinessIcon sx={{ color: '#2D5BE3', fontSize: 20 }} /></InputAdornment> }}
                   sx={inputStyles}
                 />
               </Box>
 
-              {/* Contact Person */}
               <TextField
                 fullWidth required
                 label="Contact Person"
@@ -205,7 +188,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Designation */}
               <TextField
                 fullWidth required
                 label="Designation"
@@ -217,7 +199,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Email */}
               <TextField
                 fullWidth required
                 label="Email Address"
@@ -230,7 +211,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Phone */}
               <TextField
                 fullWidth required
                 label="Phone Number"
@@ -243,7 +223,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* City */}
               <TextField
                 fullWidth required
                 label="City"
@@ -255,7 +234,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* State */}
               <TextField
                 fullWidth required
                 label="State"
@@ -267,7 +245,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Institution Type */}
               <TextField
                 fullWidth required select
                 label="Institution Type"
@@ -283,7 +260,6 @@ const StemEnquiryForm = () => {
                 ))}
               </TextField>
 
-              {/* Number of Students */}
               <TextField
                 fullWidth required
                 label="No. of Students"
@@ -296,7 +272,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Lab Area */}
               <TextField
                 fullWidth
                 label="Area Available for Lab (sq.ft.)"
@@ -308,7 +283,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Budget Range */}
               <TextField
                 fullWidth select
                 label="Budget Range"
@@ -324,7 +298,6 @@ const StemEnquiryForm = () => {
                 ))}
               </TextField>
 
-              {/* Preferred Callback Date */}
               <TextField
                 fullWidth
                 label="Preferred Callback Date"
@@ -339,7 +312,6 @@ const StemEnquiryForm = () => {
                 sx={inputStyles}
               />
 
-              {/* Specific Requirements — full width */}
               <Box sx={{ gridColumn: '1 / -1' }}>
                 <TextField
                   fullWidth multiline rows={4}
@@ -359,7 +331,6 @@ const StemEnquiryForm = () => {
                 />
               </Box>
 
-              {/* Submit — full width */}
               <Box sx={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                 <PrimaryButton
                   type="submit"
@@ -383,37 +354,6 @@ const StemEnquiryForm = () => {
               </Box>
             </Box>
           </Box>
-
-          {/* Contact alternatives */}
-          <Box
-            sx={{
-              mt: 5,
-              pt: 4,
-              borderTop: '1px solid #E5E7EB',
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 3,
-              justifyContent: 'center',
-            }}
-          >
-            {[
-              { icon: '📞', label: 'Call Us', value: '+91 98765 43210' },
-              { icon: '📧', label: 'Email Us', value: 'info@snpinnovation.in' },
-              { icon: '🌐', label: 'Visit Us', value: 'www.snpinnovation.in' },
-            ].map((contact) => (
-              <Box key={contact.label} sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <Typography sx={{ fontSize: 22 }}>{contact.icon}</Typography>
-                <Box>
-                  <Typography sx={{ fontSize: '11px', color: '#9CA3AF', fontWeight: 600 }}>
-                    {contact.label}
-                  </Typography>
-                  <Typography sx={{ fontSize: '14px', color: '#1F2937', fontWeight: 600 }}>
-                    {contact.value}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-          </Box>
         </Box>
       </Container>
     </Box>
@@ -421,3 +361,7 @@ const StemEnquiryForm = () => {
 };
 
 export default StemEnquiryForm;
+
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK
+// END_OF_FILE_PADDING_TO_PREVENT_TRUNCATION_BY_WINDOWS_MOUNT_QUIRK

@@ -22,7 +22,6 @@ import {
   Snackbar,
   FormHelperText,
 } from '@mui/material';
-import { Grid } from '@mui/material';
 import SectionHeader from '../common/SectionHeader';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
@@ -206,14 +205,29 @@ const submitBtnSx = {
   '&:disabled': { opacity: 0.7 },
 };
 
-// ── Reusable form builder ────────────────────────────────────────────────────
+// ── Reusable form builder (uses CSS Grid for reliable column layout in MUI v9) ──
 const DynamicForm = ({ fields, formData, errors, onChange, onSubmit, loading, submitLabel }) => (
   <Box component="form" onSubmit={onSubmit} noValidate>
-    <Grid container spacing={2}>
+    {/* 12-column CSS Grid on md+; collapses to 1 column on xs. Each field
+        uses gridColumn:'span N' (mapping the old colSpan values directly). */}
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', sm: 'repeat(12, 1fr)' },
+        gap: 2,
+      }}
+    >
       {fields.map((field) => {
         const colSpan = field.colSpan || 12;
         return (
-          <Grid key={field.name} item xs={12} sm={colSpan === 12 ? 12 : 6} md={colSpan}>
+          <Box
+            key={field.name}
+            sx={{
+              // Mobile: every field stacks full-width.
+              // sm+: span the configured number of 12-grid columns.
+              gridColumn: { xs: '1 / -1', sm: `span ${colSpan}` },
+            }}
+          >
             {field.type === 'select' ? (
               <FormControl fullWidth error={!!errors[field.name]}>
                 <InputLabel sx={{ '&.Mui-focused': { color: '#2D5BE3' } }}>
@@ -255,10 +269,10 @@ const DynamicForm = ({ fields, formData, errors, onChange, onSubmit, loading, su
                 sx={inputSx}
               />
             )}
-          </Grid>
+          </Box>
         );
       })}
-    </Grid>
+    </Box>
     <Box sx={{ textAlign: 'center', mt: 3 }}>
       <Button type="submit" disabled={loading} sx={submitBtnSx}>
         {loading ? <CircularProgress size={20} color="inherit" /> : submitLabel}
@@ -303,7 +317,7 @@ const useForm = (fields, formLabel = 'IT Enquiry') => {
     if (!validate()) return;
     setLoading(true);
     try {
-      // Send to dhokeayush0@gmail.com via Web3Forms
+      // Send to nikhilgujar902@gmail.com via Web3Forms
       await submitForm(formLabel, formData);
       setSuccess(true);
       setFormData(initState);
@@ -412,27 +426,36 @@ const ITEnquiryForm = () => {
                 submitLabel="Submit Profile"
               />
 
-              {/* CV Upload */}
+              {/* CV Upload — full-width dropzone, icon + text centered as a stack.
+                  `display:flex` with column direction prevents the inline-label
+                  collapse that was leaving the icon stranded on the left. */}
               <Box
+                component="label"
                 sx={{
                   mt: 3,
-                  p: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  py: 4,
+                  px: 3,
                   border: '2px dashed #CBD5E1',
                   borderRadius: 2,
                   textAlign: 'center',
                   backgroundColor: '#F9FAFB',
                   cursor: 'pointer',
+                  transition: 'all 0.2s ease',
                   '&:hover': { borderColor: '#2D5BE3', backgroundColor: '#EFF6FF' },
                 }}
-                component="label"
               >
                 <input type="file" accept=".pdf,.doc,.docx" hidden onChange={handleCvChange} />
-                <CloudUploadIcon sx={{ fontSize: 40, color: '#9CA3AF', mb: 1 }} />
-                <Typography variant="body2" sx={{ color: '#6B7280', fontWeight: 500 }}>
+                <CloudUploadIcon sx={{ fontSize: 44, color: '#2D5BE3', mb: 1.5 }} />
+                <Typography variant="body1" sx={{ color: '#1F2937', fontWeight: 600, mb: 0.5 }}>
                   {cvFileName || 'Upload your CV (PDF, DOC, DOCX)'}
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#9CA3AF' }}>
-                  Click to browse or drag & drop
+                  Click to browse or drag &amp; drop
                 </Typography>
               </Box>
             </TabPanel>

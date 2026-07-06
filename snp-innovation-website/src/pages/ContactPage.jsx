@@ -20,19 +20,17 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import SendIcon from '@mui/icons-material/Send';
 import PageBanner from '../components/common/PageBanner';
 
-// ── Static data from PDF ─────────────────────────────────────
+// ── Static data ──────────────────────────────────────────────
 const CONTACT_INFO = {
-  phone: '+91-XXXX-XXX-XXXX',
-  email: 'info@snpinnovation.com',
-  address: 'SNP Innovation Pvt. Ltd., Mumbai, Maharashtra, India',
+  phone: '+91 8329-397933',
+  email: 'Info@snpinnovation.in',
+  emailAlt: 'contact@snpinnovation.in',
+  address: 'C/O Incube Coworking Space, Tejaswini Housing Society, next to Midpoint Hospital, Aundh-Baner DP Rd, Baner, Maharashtra, India - 411045',
   hours: 'Monday – Friday: 9:00 AM – 6:00 PM IST',
 };
 
 const OFFICES = [
-  { city: 'Mumbai', label: 'Head Office', address: 'Mumbai, Maharashtra' },
-  { city: 'Pune',   label: 'West India',   address: 'Pune, Maharashtra' },
-  { city: 'Delhi',  label: 'North India',  address: 'New Delhi' },
-  { city: 'Bangalore', label: 'South India', address: 'Bengaluru, Karnataka' },
+  { city: 'Pune', label: 'Head Office', address: 'Baner, Pune, Maharashtra - 411045' },
 ];
 
 const SOCIAL_LINKS = [
@@ -169,6 +167,7 @@ const ContactPage = () => {
                 { icon: <LocationOnIcon />, label: 'Address', value: CONTACT_INFO.address },
                 { icon: <PhoneIcon />,      label: 'Phone',   value: CONTACT_INFO.phone },
                 { icon: <EmailIcon />,      label: 'Email',   value: CONTACT_INFO.email },
+                { icon: <EmailIcon />,      label: 'Email (Alt)', value: CONTACT_INFO.emailAlt },
                 { icon: <AccessTimeIcon />, label: 'Hours',   value: CONTACT_INFO.hours },
               ].map((item) => (
                 <Box
@@ -316,5 +315,7 @@ const ContactPage = () => {
     </Box>
   );
 };
+
+
 
 export default ContactPage;

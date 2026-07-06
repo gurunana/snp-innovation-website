@@ -172,7 +172,7 @@ const RDEnquiryForm = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      // Send to dhokeayush0@gmail.com via Web3Forms
+      // Send to nikhilgujar902@gmail.com via Web3Forms
       await submitForm('R&D Project Enquiry', formData);
     } catch {
       // Submission still shows success — catch network errors silently
